@@ -1,1 +1,1 @@
-# python-hde
+# python-hde [![codecov](https://codecov.io/gh/becelot/python-hde/branch/main/graph/badge.svg?token=C5SXI4B7PV)](https://codecov.io/gh/becelot/python-hde)
