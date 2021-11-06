@@ -1,2 +1,5 @@
+from python_hde.main import main
+
+
 def test_abc():
-    assert 1 == 1
+    assert main() == "test"
