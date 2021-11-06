@@ -9,27 +9,6 @@ disallow_untyped_defs = true
 files = "."
 exclude = "venv"
 
-[[tool.mypy.overrides]] # Overrides for currently untyped modules
-module = [
-    "docs.*",
-    "docs.ext.*",
-    "gitlab.v4.objects.*",
-    "setup",
-    "tests.functional.*",
-    "tests.functional.api.*",
-    "tests.unit.*",
-    "tests.smoke.*"
-]
-ignore_errors = true
-
-
-[[tool.mypy.overrides]] # Overrides to negate above patterns
-module = [
-    "gitlab.v4.objects.projects",
-    "gitlab.v4.objects.users"
-]
-ignore_errors = false
-
 [tool.semantic_release]
 branch = "main"
 version_variable = "gitlab/__version__.py:__version__"
