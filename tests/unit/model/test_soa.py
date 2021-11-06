@@ -1,4 +1,4 @@
-from python_hde.model.soa_values import SoaValues
+from hostingde.model.soa_values import SoaValues
 
 
 def test_soa_constructor():

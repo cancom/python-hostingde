@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from python_hde.model import Model
+from hostingde.model import Model
 
 
 @dataclass

@@ -1,6 +1,6 @@
 import pytest
 
-from python_hde.model.zone_config import ZoneConfig, ZoneConfigType
+from hostingde.model.zone_config import ZoneConfig, ZoneConfigType
 
 
 def test_zone_config_constructor():

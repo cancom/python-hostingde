@@ -1,5 +1,5 @@
-from python_hde.client import HostingDeClient
-from python_hde.exceptions import ClientException
+from hostingde.client import HostingDeClient
+from hostingde.exceptions import ClientException
 
 
 def login(base_url: str, token: str):

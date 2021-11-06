@@ -1,11 +1,11 @@
 from dataclasses import field, dataclass
 from typing import TypeVar, Generic, Optional, List, Type
 
-from python_hde.exceptions import ClientException
-from python_hde.hostingde import HostingDeCore
-from python_hde.model import Model
-from python_hde.model.filter import FilterElement
-from python_hde.model.sort import SortConfiguration
+from hostingde.exceptions import ClientException
+from hostingde.hostingde import HostingDeCore
+from hostingde.model import Model
+from hostingde.model.filter import FilterElement
+from hostingde.model.sort import SortConfiguration
 
 R = TypeVar('R')
 

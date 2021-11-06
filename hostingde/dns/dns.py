@@ -1,19 +1,19 @@
 from typing import Optional, List
 
-from python_hde.dns.requests.update_zone_request import UpdateZoneRequest
-from python_hde.exceptions import ClientException
-from python_hde.job_waiter import AsynchronousClient, JobWaiter
-from python_hde.model.zone_config import ZoneConfig
+from hostingde.dns.requests.update_zone_request import UpdateZoneRequest
+from hostingde.exceptions import ClientException
+from hostingde.job_waiter import AsynchronousClient, JobWaiter
+from hostingde.model.zone_config import ZoneConfig
 
-from python_hde.dns.requests.delete_zone import DeleteZoneRequest
-from python_hde.dns.requests.create_new_zone import CreateZoneRequest
-from python_hde.hostingde import HostingDeCore
-from python_hde.model.filter import FilterElement
-from python_hde.model.job import Job
-from python_hde.model.sort import SortConfiguration
-from python_hde.model.zone import Zone
-from python_hde.paginator import HostingDePaginator
-from python_hde.model.record import Record
+from hostingde.dns.requests.delete_zone import DeleteZoneRequest
+from hostingde.dns.requests.create_new_zone import CreateZoneRequest
+from hostingde.hostingde import HostingDeCore
+from hostingde.model.filter import FilterElement
+from hostingde.model.job import Job
+from hostingde.model.sort import SortConfiguration
+from hostingde.model.zone import Zone
+from hostingde.paginator import HostingDePaginator
+from hostingde.model.record import Record
 
 
 class DnsClient(HostingDeCore, AsynchronousClient):

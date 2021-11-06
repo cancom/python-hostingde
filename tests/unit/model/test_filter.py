@@ -1,6 +1,6 @@
 import pytest
 
-from python_hde.model.filter import FilterCondition, FilterCompilationException, FilterChain, FilterChainConnective
+from hostingde.model.filter import FilterCondition, FilterCompilationException, FilterChain, FilterChainConnective
 
 
 class TestSimpleFilterCondition:

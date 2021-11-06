@@ -4,11 +4,11 @@ from typing import Optional, Type
 
 from requests import Response
 
-from python_hde.exceptions import ApiException, ClientException
-from python_hde.model import Model
-from python_hde.model.filter import FilterElement
-from python_hde.model.sort import SortConfiguration
-from python_hde.session import HostingDeSession
+from hostingde.exceptions import ApiException, ClientException
+from hostingde.model import Model
+from hostingde.model.filter import FilterElement
+from hostingde.model.sort import SortConfiguration
+from hostingde.session import HostingDeSession
 
 
 class HostingDeCore:
@@ -103,7 +103,7 @@ class HostingDeCore:
         :param sort: The sorting of the resulting list
         :return: The iterator for the resultset
         """
-        from python_hde.paginator import HostingDePaginator
+        from hostingde.paginator import HostingDePaginator
         return HostingDePaginator(self, instance_class, url, filter=filter, limit=limit, sort=sort)
 
     def login(self, url: str, token: str) -> None:

@@ -11,6 +11,6 @@ exclude = "venv"
 
 [tool.semantic_release]
 branch = "main"
-version_variable = "gitlab/__version__.py:__version__"
+version_variable = "hostingde/__version__.py:__version__"
 commit_subject = "chore: release v{version}"
 commit_message = ""
