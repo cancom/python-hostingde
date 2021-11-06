@@ -1,0 +1,6 @@
+requests~=2.25.1
+marshmallow==3.10.0
+marshmallow-dataclass==8.3.1
+marshmallow-enum==1.5.1
+urllib3~=1.26.3
+responses~=0.13.1
