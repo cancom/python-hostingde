@@ -3,7 +3,7 @@ from enum import Enum
 
 from marshmallow_enum import EnumField
 
-from python_hde.model import Model
+from hostingde.model import Model
 
 
 class SortOrder(Enum):

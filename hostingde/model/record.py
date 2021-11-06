@@ -4,7 +4,7 @@ from typing import Optional
 
 from marshmallow_enum import EnumField
 
-from python_hde.model import Model
+from hostingde.model import Model
 
 
 class RecordType(Enum):

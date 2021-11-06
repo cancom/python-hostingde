@@ -1,4 +1,4 @@
-from python_hde.model.record import Record, RecordType
+from hostingde.model.record import Record, RecordType
 
 
 def test_record_constructor():

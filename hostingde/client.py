@@ -1,6 +1,6 @@
-from python_hde.account.account import AccountClient
-from python_hde.dns.dns import DnsClient
-from python_hde.hostingde import HostingDeCore
+from hostingde.account.account import AccountClient
+from hostingde.dns.dns import DnsClient
+from hostingde.hostingde import HostingDeCore
 
 
 class HostingDeClient(HostingDeCore):

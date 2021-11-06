@@ -1,4 +1,4 @@
-from python_hde.model.sort import SortConfiguration, SortOrder
+from hostingde.model.sort import SortConfiguration, SortOrder
 
 
 def test_sort_constructor():

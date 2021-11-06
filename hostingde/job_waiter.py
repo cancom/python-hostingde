@@ -2,10 +2,10 @@ from abc import ABC, abstractmethod
 import time
 from typing import Optional
 
-from python_hde.model.filter import FilterElement, FilterCondition
-from python_hde.model.job import Job
-from python_hde.model.sort import SortConfiguration
-from python_hde.paginator import HostingDePaginator
+from hostingde.model.filter import FilterElement, FilterCondition
+from hostingde.model.job import Job
+from hostingde.model.sort import SortConfiguration
+from hostingde.paginator import HostingDePaginator
 
 
 class AsynchronousClient(ABC):

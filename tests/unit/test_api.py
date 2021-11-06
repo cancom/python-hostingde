@@ -1,6 +1,6 @@
 import pytest
 
-from python_hde.api import login
+from hostingde.api import login
 
 
 def test_success():

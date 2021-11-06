@@ -3,9 +3,9 @@ from typing import Optional, List
 
 from marshmallow_enum import EnumField
 
-from python_hde.exceptions import ClientException
-from python_hde.model import Model
-from python_hde.model.soa_values import SoaValues
+from hostingde.exceptions import ClientException
+from hostingde.model import Model
+from hostingde.model.soa_values import SoaValues
 from enum import Enum
 
 

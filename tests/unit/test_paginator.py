@@ -2,9 +2,9 @@ import json
 
 import responses
 
-from python_hde.api import login
-from python_hde.model.record import Record, RecordType
-from python_hde.paginator import HostingDePaginator
+from hostingde.api import login
+from hostingde.model.record import Record, RecordType
+from hostingde.paginator import HostingDePaginator
 
 
 @responses.activate

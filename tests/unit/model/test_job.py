@@ -1,4 +1,4 @@
-from python_hde.model.job import Job, JobStatus
+from hostingde.model.job import Job, JobStatus
 
 
 def test_job_constructor():

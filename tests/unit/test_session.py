@@ -2,7 +2,7 @@ import pytest
 import responses
 from requests import PreparedRequest, Response
 
-from python_hde.session import HostingDeSession
+from hostingde.session import HostingDeSession
 
 
 def test_session_create():

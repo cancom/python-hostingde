@@ -4,7 +4,7 @@ from typing import Optional
 import requests as requests
 from requests import auth, models
 
-from python_hde.exceptions import ClientException
+from hostingde.exceptions import ClientException
 
 
 class HostingDeAuth(auth.AuthBase):

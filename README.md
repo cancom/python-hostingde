@@ -23,8 +23,9 @@ python setup.py install --user
 (or `sudo python setup.py install` to install the package for all users)
 
 Then import the package:
+
 ```python
-import python_hde
+import hostingde
 ```
 
 ## Getting Started
@@ -33,8 +34,8 @@ Please follow the [installation procedure](#installation--usage).  To login with
 url, and an API token. To authenticate:
 
 ```python
-from python_hde import api
-from python_hde.client import HostingDeClient
+from hostingde import api
+from hostingde.client import HostingDeClient
 
 client: HostingDeClient = api.login('<your endpoint url>', '<your token>')
 ```
@@ -46,13 +47,13 @@ The client is modularized into the different service types, for example `client.
 For example, to fetch all zones, you can use:
 
 ```python
-from python_hde import api
-from python_hde.client import HostingDeClient
+from hostingde import api
+from hostingde.client import HostingDeClient
 
 client: HostingDeClient = api.login('<your endpoint url>', '<your token>')
 
 for zone in client.dns.list_zones():
-    print(zone)
+  print(zone)
 ```
 
 All implemented endpoints are fully documented and typed. You will get corresponding hints in your IDE of choice. 
@@ -62,16 +63,16 @@ All implemented endpoints are fully documented and typed. You will get correspon
 In order to use filter and sort APIs, we simplified the usage of the API. For example, to search for a specific zone:
 
 ```python
-from python_hde import api
-from python_hde.client import HostingDeClient
-from python_hde.model.filter import FilterCondition
+from hostingde import api
+from hostingde.client import HostingDeClient
+from hostingde.model.filter import FilterCondition
 
 client: HostingDeClient = api.login('<your endpoint url>', '<your token>')
 
 zone_filter = FilterCondition('zoneName').eq('example.com')
 
 for zone in client.dns.list_zones(filter=zone_filter):
-    print(zone)
+  print(zone)
 ```
 
 This will automatically build teh corresponding filter expression in the background
@@ -99,16 +100,17 @@ Apart from `FilterCondition.eq`, the condition supports all relations currently 
 Chaining filters is easily supported as well:
 
 ```python
-from python_hde import api
-from python_hde.client import HostingDeClient
-from python_hde.model.filter import FilterCondition
+from hostingde import api
+from hostingde.client import HostingDeClient
+from hostingde.model.filter import FilterCondition
 
 client: HostingDeClient = api.login('<your endpoint url>', '<your token>')
 
-zone_filter = (FilterCondition('zoneName').startswith('example') | FilterCondition('zoneName').startswith('demo')) & FilterCondition('zoneName').ne('*.com')
+zone_filter = (FilterCondition('zoneName').startswith('example') | FilterCondition('zoneName').startswith(
+  'demo')) & FilterCondition('zoneName').ne('*.com')
 
 for zone in client.dns.list_zones(filter=zone_filter):
-    print(zone)
+  print(zone)
 ```
 
 This automatically builds the equivalent filter expression for the API:

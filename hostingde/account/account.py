@@ -1,10 +1,10 @@
 from typing import Optional
 
-from python_hde.hostingde import HostingDeCore
-from python_hde.model.account import Account
-from python_hde.model.filter import FilterElement
-from python_hde.model.sort import SortConfiguration
-from python_hde.paginator import HostingDePaginator
+from hostingde.hostingde import HostingDeCore
+from hostingde.model.account import Account
+from hostingde.model.filter import FilterElement
+from hostingde.model.sort import SortConfiguration
+from hostingde.paginator import HostingDePaginator
 
 
 class AccountClient(HostingDeCore):

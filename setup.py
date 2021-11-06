@@ -5,7 +5,7 @@ from setuptools import find_packages, setup
 
 
 def get_version():
-    with open("python_hde/__version__.py") as f:
+    with open("hostingde/__version__.py") as f:
         for line in f:
             if line.startswith("__version__"):
                 return eval(line.split("=")[-1])
@@ -15,7 +15,7 @@ with open("README.md", "r") as readme_file:
     readme = readme_file.read()
 
 setup(
-    name="python-hde",
+    name="python-hostingde",
     version=get_version(),
     description="Interact with HostingDe API",
     long_description=readme,
