@@ -1,0 +1,6 @@
+coverage
+httmock
+mock
+pytest
+pytest-cov
+responses
