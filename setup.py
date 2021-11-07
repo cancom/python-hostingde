@@ -23,9 +23,16 @@ setup(
     author="Benedict Becker",
     author_email="benedict.becker93@gmail.com",
     license="LGPLv3",
-    url="https://github.com/becelot/python-hde",
+    url="https://github.com/becelot/python-hostingde",
     packages=find_packages(exclude=["docs*", "tests*"]),
-    install_requires=["requests>=2.25.0", "requests-toolbelt>=0.9.1"],
+    install_requires=[
+        "requests>=2.25.1",
+        "marshmallow==3.10.0",
+        "marshmallow-dataclass==8.3.1",
+        "marshmallow-enum==1.5.1",
+        "urllib3~=1.26.3",
+        "responses~=0.13.1"
+    ],
     python_requires=">=3.6.0",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
