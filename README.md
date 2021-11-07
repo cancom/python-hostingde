@@ -3,7 +3,6 @@
 An unofficial client library for the [hosting.de API](https://hosting.de/api/).
 
 - API Version: v1
-- Package version: 0.0.1
 
 ## Requirements
 
