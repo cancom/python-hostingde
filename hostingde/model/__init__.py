@@ -54,7 +54,7 @@ class Model:
     def to_json(self) -> dict:
         return marshmallow_dataclass.class_schema(self.get_class_instance(), base_schema=CamelCaseSchema)().dump(self)
 
-    def __init__(self, **kwargs: dict):
+    def __init__(self, **kwargs: Any):
         """
         Default constructor that sets all kwargs as internal properties
 
