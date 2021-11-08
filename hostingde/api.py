@@ -2,7 +2,7 @@ from hostingde.client import HostingDeClient
 from hostingde.exceptions import ClientException
 
 
-def login(base_url: str, token: str):
+def login(base_url: str, token: str) -> HostingDeClient:
     """
     Entry point for the client. Builds and logs the user in.
 

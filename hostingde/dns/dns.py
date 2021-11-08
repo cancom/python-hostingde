@@ -24,7 +24,7 @@ class DnsClient(HostingDeCore, AsynchronousClient):
         """
         super().__init__(parent)
 
-    def build_uri(self, method: str):
+    def build_uri(self, method: str) -> str:
         """
         Utility method to easily construct URLs for this service.
 
@@ -38,8 +38,8 @@ class DnsClient(HostingDeCore, AsynchronousClient):
         limit: Optional[int] = None,
         filter: Optional[FilterElement] = None,
         sort: Optional[SortConfiguration] = None,
-        *args,
-        **kwargs
+        *args: list,
+        **kwargs: dict
     ) -> HostingDePaginator[Zone]:
         """
         Retrieves a list of Zone objects from the generic filtering and sorting API.
@@ -113,9 +113,9 @@ class DnsClient(HostingDeCore, AsynchronousClient):
         limit: Optional[int] = None,
         filter: Optional[FilterElement] = None,
         sort: Optional[SortConfiguration] = None,
-        *args,
-        **kwargs
-    ) -> HostingDePaginator[Zone]:
+        *args: list,
+        **kwargs: dict
+    ) -> HostingDePaginator[ZoneConfig]:
         """
         Retrieves a list of ZoneConfig objects from the generic filtering and sorting API.
 
@@ -174,8 +174,8 @@ class DnsClient(HostingDeCore, AsynchronousClient):
         limit: Optional[int] = None,
         filter: Optional[FilterElement] = None,
         sort: Optional[SortConfiguration] = None,
-        *args,
-        **kwargs
+        *args: list,
+        **kwargs: dict
     ) -> HostingDePaginator[Record]:
         """
         Retrieves a list of Record objects from the generic filtering and sorting API.
@@ -245,8 +245,8 @@ class DnsClient(HostingDeCore, AsynchronousClient):
         limit: Optional[int] = None,
         filter: Optional[FilterElement] = None,
         sort: Optional[SortConfiguration] = None,
-        *args,
-        **kwargs
+        *args: list,
+        **kwargs: dict
     ) -> HostingDePaginator[Job]:
         """
         Retrieves a list of Job objects from the generic filtering and sorting API.
@@ -297,10 +297,12 @@ class DnsClient(HostingDeCore, AsynchronousClient):
             ),
         )
 
-        if not asynchronous:
-            JobWaiter(self, zone_config.id).wait()
+        zone = self._instance(Zone, response.json().get('response', {}))
 
-        return self._instance(Zone, response.json().get('response', {}))
+        if not asynchronous and zone.zone_config.id is not None:
+            JobWaiter(self, zone.zone_config.id).wait()
+
+        return zone
 
     def create_zone(
         self,
@@ -342,7 +344,7 @@ class DnsClient(HostingDeCore, AsynchronousClient):
 
         zone: Zone = self._instance(Zone, response.json().get('response', {}))
 
-        if not asynchronous:
+        if not asynchronous and zone.zone_config.id is not None:
             JobWaiter(self, zone.zone_config.id).wait()
 
         return zone

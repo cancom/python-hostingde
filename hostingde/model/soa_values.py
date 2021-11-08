@@ -1,5 +1,4 @@
 from dataclasses import dataclass, field
-from typing import Optional
 
 from hostingde.model import Model
 
@@ -15,11 +14,11 @@ class SoaValues(Model):
 
     def __init__(
         self,
-        refresh: Optional[int] = 86400,
-        retry: Optional[int] = 7200,
-        expire: Optional[int] = 3600000,
-        ttl: Optional[int] = 172800,
-        negative_ttl: Optional[int] = 3600,
+        refresh: int = 86400,
+        retry: int = 7200,
+        expire: int = 3600000,
+        ttl: int = 172800,
+        negative_ttl: int = 3600,
     ):
         """
         The SOA values object contains the time (seconds) used in a zone's SOA record. The maximum number of seconds is
