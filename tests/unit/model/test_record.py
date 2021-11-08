@@ -11,7 +11,7 @@ def test_record_constructor():
         last_change_date="some_timestamp",
         content="127.0.0.1",
         priority=0,
-        ttl=0
+        ttl=0,
     )
 
     assert record.id == '234987fds'
@@ -37,7 +37,7 @@ def test_parse_record():
         lastChangeDate="some_timestamp",
         content="127.0.0.1",
         priority=0,
-        ttl=0
+        ttl=0,
     )
 
     record = Record.from_json(data)
@@ -63,7 +63,7 @@ def test_dump_record():
         last_change_date="some_timestamp",
         content="127.0.0.1",
         priority=0,
-        ttl=0
+        ttl=0,
     )
 
     assert record.to_json() == dict(
@@ -75,7 +75,7 @@ def test_dump_record():
         lastChangeDate="some_timestamp",
         content="127.0.0.1",
         priority=0,
-        ttl=0
+        ttl=0,
     )
 
 

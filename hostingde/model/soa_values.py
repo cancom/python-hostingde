@@ -1,4 +1,4 @@
-from dataclasses import field, dataclass
+from dataclasses import dataclass, field
 from typing import Optional
 
 from hostingde.model import Model
@@ -13,8 +13,14 @@ class SoaValues(Model):
     ttl: int = field(default=172800)
     negative_ttl: int = field(default=3600)
 
-    def __init__(self, refresh: Optional[int] = 86400, retry: Optional[int] = 7200, expire: Optional[int] = 3600000,
-                 ttl: Optional[int] = 172800, negative_ttl: Optional[int] = 3600):
+    def __init__(
+        self,
+        refresh: Optional[int] = 86400,
+        retry: Optional[int] = 7200,
+        expire: Optional[int] = 3600000,
+        ttl: Optional[int] = 172800,
+        negative_ttl: Optional[int] = 3600,
+    ):
         """
         The SOA values object contains the time (seconds) used in a zone's SOA record. The maximum number of seconds is
         31556926 which equals one year. Exceeding the maximum and uncercutting the minimum values will cause the request

@@ -29,10 +29,20 @@ class Job(Model):
     parent_job_id: Optional[str]
     status: JobStatus = EnumField(JobStatus)
 
-    def __init__(self, account_id: str = None, action: str = None, add_date: str = None, display_name: str = None,
-                 id: str = None, last_change_date: str = None,
-                 object_id: str = None, object_type: str = None, parent_job_id: str = None, status: JobStatus = None,
-                 **kwargs):
+    def __init__(
+        self,
+        account_id: str = None,
+        action: str = None,
+        add_date: str = None,
+        display_name: str = None,
+        id: str = None,
+        last_change_date: str = None,
+        object_id: str = None,
+        object_type: str = None,
+        parent_job_id: str = None,
+        status: JobStatus = None,
+        **kwargs,
+    ):
         """
         Represents a job.
 

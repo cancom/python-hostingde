@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from enum import Enum
-from typing import Optional, List, Union
+from typing import List, Optional, Union
 
 
 class FilterCompilationException(Exception):
@@ -8,7 +8,6 @@ class FilterCompilationException(Exception):
 
 
 class FilterElement(ABC):
-
     @abstractmethod
     def to_filter_object(self):
         """
@@ -22,6 +21,7 @@ class FilterConditionRelation(Enum):
     """
     Available relations for conditional filters.
     """
+
     EQUAL = 'equal'
     UNEQUAL = 'unequal'
     GREATER = 'greater'
@@ -32,9 +32,9 @@ class FilterConditionRelation(Enum):
 
 class FilterCondition(FilterElement):
     """
-     The result will match to this condition. You can find lists or available and valid fields throughout the API.
-     Please refer to specific documentation sections for the respective finding methods. Field names are case
-     insensitive.
+    The result will match to this condition. You can find lists or available and valid fields throughout the API.
+    Please refer to specific documentation sections for the respective finding methods. Field names are case
+    insensitive.
     """
 
     def to_filter_object(self):
@@ -44,17 +44,11 @@ class FilterCondition(FilterElement):
         :raise FilterCompilationException: If the filter did not contain the necessary fields.
         """
         if self.field is not None and self.value is not None:
-            return {
-                "field": self.field,
-                "value": self.value,
-                "relation": str(self.relation.value)
-            }
+            return {"field": self.field, "value": self.value, "relation": str(self.relation.value)}
         else:
             raise FilterCompilationException(f'Value for field "{self.field}" was not specified.')
 
-    def __init__(self, field: str,
-                 value: Optional[str] = None,
-                 relation: Optional[FilterConditionRelation] = None):
+    def __init__(self, field: str, value: Optional[str] = None, relation: Optional[FilterConditionRelation] = None):
         """
         In its simplest form, the filter parameter takes a field and a value parameter. The field element is restricted
         to a list of field names which vary from listing to listing.
@@ -198,6 +192,7 @@ class FilterChainConnective(Enum):
     """
     Available connectives for chain filters.
     """
+
     AND = 'and'
     OR = 'or'
 
@@ -217,10 +212,7 @@ class FilterChain(FilterElement):
         if len(self.filters) == 0:
             raise FilterCompilationException('ChainFilter has no filters attached.')
 
-        return {
-            "subFilterConnective": self.connective.value,
-            "subFilter": [f.to_filter_object() for f in self.filters]
-        }
+        return {"subFilterConnective": self.connective.value, "subFilter": [f.to_filter_object() for f in self.filters]}
 
     def __init__(self, connective: FilterChainConnective):
         """

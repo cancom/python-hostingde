@@ -11,6 +11,7 @@ class RecordType(Enum):
     """
     Available relations for conditional filters.
     """
+
     A = 'A'
     AAAA = 'AAAA'
     ALIAS = 'ALIAS'
@@ -49,16 +50,18 @@ class Record(Model):
     last_change_date: Optional[str]
     type: Optional[RecordType] = EnumField(RecordType)
 
-    def __init__(self,
-                 id: Optional[str] = None,
-                 zone_id: Optional[str] = None,
-                 record_template_id: Optional[str] = None,
-                 name: Optional[str] = None,
-                 type: Optional[RecordType] = None,
-                 content: Optional[str] = None,
-                 ttl: Optional[int] = None,
-                 priority: Optional[int] = None,
-                 last_change_date: Optional[str] = None):
+    def __init__(
+        self,
+        id: Optional[str] = None,
+        zone_id: Optional[str] = None,
+        record_template_id: Optional[str] = None,
+        name: Optional[str] = None,
+        type: Optional[RecordType] = None,
+        content: Optional[str] = None,
+        ttl: Optional[int] = None,
+        priority: Optional[int] = None,
+        last_change_date: Optional[str] = None,
+    ):
         """
         The DNS Record object is part of a zone. It is used to manage DNS resource records.
 
@@ -115,12 +118,7 @@ class Record(Model):
         return f"{self.name} {self.type.value} {self.content}"
 
     @staticmethod
-    def create_new_record(name: str, type: RecordType, content: str, ttl: Optional[int] = 86400,
-                          priority: Optional[str] = None):
-        return Record(
-            name=name,
-            type=type,
-            content=content,
-            ttl=ttl,
-            priority=priority
-        )
+    def create_new_record(
+        name: str, type: RecordType, content: str, ttl: Optional[int] = 86400, priority: Optional[str] = None
+    ):
+        return Record(name=name, type=type, content=content, ttl=ttl, priority=priority)

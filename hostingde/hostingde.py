@@ -12,7 +12,6 @@ from hostingde.session import HostingDeSession
 
 
 class HostingDeCore:
-
     def __init__(self, parent: 'HostingDeCore' = None):
         """
         Initialize a new Hosting.de API client.
@@ -53,8 +52,7 @@ class HostingDeCore:
             if error_check.get('status', 'error') == 'error':
                 raise ApiException(error_check)
         except json.decoder.JSONDecodeError:
-            raise ClientException('Error while reading response from server. '
-                                  'Is your endpoint configured correctly?')
+            raise ClientException('Error while reading response from server. ' 'Is your endpoint configured correctly?')
 
         return response
 
@@ -88,11 +86,14 @@ class HostingDeCore:
         """
         return self.session.build_path(service, "v1", "json", method)
 
-    def _iter(self,
-              url: str, instance_class: Type[Model],
-              filter: Optional[FilterElement] = None,
-              limit: Optional[int] = None,
-              sort: Optional[SortConfiguration] = None):
+    def _iter(
+        self,
+        url: str,
+        instance_class: Type[Model],
+        filter: Optional[FilterElement] = None,
+        limit: Optional[int] = None,
+        sort: Optional[SortConfiguration] = None,
+    ):
         """
         Use the generic filtering and sorting API to paginate over results.
 
@@ -104,6 +105,7 @@ class HostingDeCore:
         :return: The iterator for the resultset
         """
         from hostingde.paginator import HostingDePaginator
+
         return HostingDePaginator(self, instance_class, url, filter=filter, limit=limit, sort=sort)
 
     def login(self, url: str, token: str) -> None:

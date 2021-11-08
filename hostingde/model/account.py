@@ -7,11 +7,11 @@ from hostingde.model import Model
 @dataclass
 class Account(Model):
     """
-        Name
-        Name of the Account
+    Name
+    Name of the Account
 
-        id
-        ID of this Account.
+    id
+    ID of this Account.
     """
 
     name: Optional[str]

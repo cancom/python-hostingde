@@ -1,5 +1,5 @@
 import marshmallow_dataclass
-from marshmallow import Schema, post_dump
+from marshmallow import post_dump, Schema
 
 
 def camelcase(s):
@@ -30,7 +30,8 @@ class CamelCaseSchema(Schema):
         :return: Transformed data with None values removed
         """
         return {
-            key: value for key, value in data.items()
+            key: value
+            for key, value in data.items()
             if isinstance(value, list) or isinstance(value, dict) or value not in self.SKIP_VALUES
         }
 

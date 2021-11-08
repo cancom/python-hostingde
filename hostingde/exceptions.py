@@ -8,9 +8,7 @@ class ApiException(Exception):
         self.details = details
 
     def __str__(self):
-        return "\n".join([
-            f"{error.get('text')}" for error in self.details.get('errors', [])
-        ])
+        return "\n".join([f"{error.get('text')}" for error in self.details.get('errors', [])])
 
 
 class ClientException(Exception):

@@ -1,8 +1,9 @@
 from dataclasses import dataclass, field
-from hostingde.model.zone_config import ZoneConfig
-from hostingde.model import Model
 from typing import List, Optional
+
+from hostingde.model import Model
 from hostingde.model.record import Record
+from hostingde.model.zone_config import ZoneConfig
 
 
 @dataclass
