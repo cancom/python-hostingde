@@ -8,7 +8,6 @@ from hostingde.paginator import HostingDePaginator
 
 
 class AccountClient(HostingDeCore):
-
     def __init__(self, parent: HostingDeCore):
         """
         Construct a new Account client
@@ -26,11 +25,14 @@ class AccountClient(HostingDeCore):
         """
         return self._build_uri('account', method)
 
-    def list_subaccounts_names(self,
-                               limit: Optional[int] = None,
-                               filter: Optional[FilterElement] = None,
-                               sort: Optional[SortConfiguration] = None,
-                               *args, **kwargs) -> HostingDePaginator[Account]:
+    def list_subaccounts_names(
+        self,
+        limit: Optional[int] = None,
+        filter: Optional[FilterElement] = None,
+        sort: Optional[SortConfiguration] = None,
+        *args,
+        **kwargs
+    ) -> HostingDePaginator[Account]:
         """
         List subaccounts for the current context.
 

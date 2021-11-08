@@ -1,5 +1,5 @@
-__author__ = "Benedict Becker, CANCOM GmbH"
-__email__ = "benedict.becker93@gmail.com"
+__author__ = "CANCOM GmbH"
+__email__ = "opensource@cancom.de"
 __license__ = "MIT"
-__title__ = "python-hde"
+__title__ = "python-hostingde"
 __version__ = "0.1.0"

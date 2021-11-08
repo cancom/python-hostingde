@@ -1,23 +1,21 @@
-from typing import Optional, List
+from typing import List, Optional
 
+from hostingde.dns.requests.create_new_zone import CreateZoneRequest
+from hostingde.dns.requests.delete_zone import DeleteZoneRequest
 from hostingde.dns.requests.update_zone_request import UpdateZoneRequest
 from hostingde.exceptions import ClientException
-from hostingde.job_waiter import AsynchronousClient, JobWaiter
-from hostingde.model.zone_config import ZoneConfig
-
-from hostingde.dns.requests.delete_zone import DeleteZoneRequest
-from hostingde.dns.requests.create_new_zone import CreateZoneRequest
 from hostingde.hostingde import HostingDeCore
+from hostingde.job_waiter import AsynchronousClient, JobWaiter
 from hostingde.model.filter import FilterElement
 from hostingde.model.job import Job
+from hostingde.model.record import Record
 from hostingde.model.sort import SortConfiguration
 from hostingde.model.zone import Zone
+from hostingde.model.zone_config import ZoneConfig
 from hostingde.paginator import HostingDePaginator
-from hostingde.model.record import Record
 
 
 class DnsClient(HostingDeCore, AsynchronousClient):
-
     def __init__(self, parent: HostingDeCore):
         """
         Construct a new client
@@ -35,11 +33,14 @@ class DnsClient(HostingDeCore, AsynchronousClient):
         """
         return self._build_uri('dns', method)
 
-    def list_zones(self,
-                   limit: Optional[int] = None,
-                   filter: Optional[FilterElement] = None,
-                   sort: Optional[SortConfiguration] = None,
-                   *args, **kwargs) -> HostingDePaginator[Zone]:
+    def list_zones(
+        self,
+        limit: Optional[int] = None,
+        filter: Optional[FilterElement] = None,
+        sort: Optional[SortConfiguration] = None,
+        *args,
+        **kwargs
+    ) -> HostingDePaginator[Zone]:
         """
         Retrieves a list of Zone objects from the generic filtering and sorting API.
 
@@ -107,11 +108,14 @@ class DnsClient(HostingDeCore, AsynchronousClient):
 
         return self._iter(uri, Zone, filter, limit, sort)
 
-    def list_zone_configs(self,
-                          limit: Optional[int] = None,
-                          filter: Optional[FilterElement] = None,
-                          sort: Optional[SortConfiguration] = None,
-                          *args, **kwargs) -> HostingDePaginator[Zone]:
+    def list_zone_configs(
+        self,
+        limit: Optional[int] = None,
+        filter: Optional[FilterElement] = None,
+        sort: Optional[SortConfiguration] = None,
+        *args,
+        **kwargs
+    ) -> HostingDePaginator[Zone]:
         """
         Retrieves a list of ZoneConfig objects from the generic filtering and sorting API.
 
@@ -165,11 +169,14 @@ class DnsClient(HostingDeCore, AsynchronousClient):
 
         return self._iter(uri, ZoneConfig, filter, limit, sort)
 
-    def list_records(self,
-                     limit: Optional[int] = None,
-                     filter: Optional[FilterElement] = None,
-                     sort: Optional[SortConfiguration] = None,
-                     *args, **kwargs) -> HostingDePaginator[Record]:
+    def list_records(
+        self,
+        limit: Optional[int] = None,
+        filter: Optional[FilterElement] = None,
+        sort: Optional[SortConfiguration] = None,
+        *args,
+        **kwargs
+    ) -> HostingDePaginator[Record]:
         """
         Retrieves a list of Record objects from the generic filtering and sorting API.
 
@@ -203,8 +210,9 @@ class DnsClient(HostingDeCore, AsynchronousClient):
 
         return self._iter(uri, Record, filter, limit, sort)
 
-    def delete_zone(self, zone_config_id: Optional[str] = None, zone_name: Optional[str] = None,
-                    asynchronous: bool = None) -> bool:
+    def delete_zone(
+        self, zone_config_id: Optional[str] = None, zone_name: Optional[str] = None, asynchronous: bool = None
+    ) -> bool:
         """
         The complete zone, ie. the zoneConfig and all records, will be deleted.
         Either the ID or the name has to be provided. If both are set, an error will be returned.
@@ -225,21 +233,21 @@ class DnsClient(HostingDeCore, AsynchronousClient):
             raise ClientException('Deleting a zone synchronously by name is currently not supported!')
 
         url = self.build_uri('zoneDelete')
-        self._request(url, DeleteZoneRequest(
-            zone_config_id=zone_config_id,
-            zone_name=zone_name
-        ))
+        self._request(url, DeleteZoneRequest(zone_config_id=zone_config_id, zone_name=zone_name))
 
         if not asynchronous and zone_config_id is not None:
             JobWaiter(self, zone_config_id).wait()
 
         return True
 
-    def jobs_find(self,
-                  limit: Optional[int] = None,
-                  filter: Optional[FilterElement] = None,
-                  sort: Optional[SortConfiguration] = None,
-                  *args, **kwargs) -> HostingDePaginator[Job]:
+    def jobs_find(
+        self,
+        limit: Optional[int] = None,
+        filter: Optional[FilterElement] = None,
+        sort: Optional[SortConfiguration] = None,
+        *args,
+        **kwargs
+    ) -> HostingDePaginator[Job]:
         """
         Retrieves a list of Job objects from the generic filtering and sorting API.
 
@@ -252,12 +260,14 @@ class DnsClient(HostingDeCore, AsynchronousClient):
 
         return self._iter(uri, Job, filter, limit, sort)
 
-    def update_zone(self,
-                    zone_config: ZoneConfig,
-                    records_to_add: Optional[List[Record]] = None,
-                    records_to_delete: Optional[List[Record]] = None,
-                    records_to_modify: Optional[List[Record]] = None,
-                    asynchronous: Optional[bool] = None) -> Zone:
+    def update_zone(
+        self,
+        zone_config: ZoneConfig,
+        records_to_add: Optional[List[Record]] = None,
+        records_to_delete: Optional[List[Record]] = None,
+        records_to_modify: Optional[List[Record]] = None,
+        asynchronous: Optional[bool] = None,
+    ) -> Zone:
         """
         You can use zoneUpdate to make adjustments to the zone's zoneConfig, to remove records, to add new records or
         to modify existing records.
@@ -277,24 +287,29 @@ class DnsClient(HostingDeCore, AsynchronousClient):
         """
         url = self.build_uri('zoneUpdate')
 
-        response = self._request(url, UpdateZoneRequest(
-            zone_config=zone_config,
-            records_to_add=records_to_add,
-            records_to_delete=records_to_delete,
-            records_to_modify=records_to_modify
-        ))
+        response = self._request(
+            url,
+            UpdateZoneRequest(
+                zone_config=zone_config,
+                records_to_add=records_to_add,
+                records_to_delete=records_to_delete,
+                records_to_modify=records_to_modify,
+            ),
+        )
 
         if not asynchronous:
             JobWaiter(self, zone_config.id).wait()
 
         return self._instance(Zone, response.json().get('response', {}))
 
-    def create_zone(self,
-                    zone_config: ZoneConfig,
-                    records: List = None,
-                    nameserver_set_id: Optional[str] = None,
-                    use_default_nameserver_set: Optional[bool] = None,
-                    asynchronous: Optional[bool] = None) -> Zone:
+    def create_zone(
+        self,
+        zone_config: ZoneConfig,
+        records: List = None,
+        nameserver_set_id: Optional[str] = None,
+        use_default_nameserver_set: Optional[bool] = None,
+        asynchronous: Optional[bool] = None,
+    ) -> Zone:
         """
         To create a zone, you need at least a zoneConfig.
 
@@ -315,12 +330,15 @@ class DnsClient(HostingDeCore, AsynchronousClient):
 
         url = self.build_uri('zoneCreate')
 
-        response = self._request(url, CreateZoneRequest(
-            zone_config=zone_config,
-            records=records,
-            nameserver_set_id=nameserver_set_id,
-            use_default_nameserver_set=use_default_nameserver_set
-        ))
+        response = self._request(
+            url,
+            CreateZoneRequest(
+                zone_config=zone_config,
+                records=records,
+                nameserver_set_id=nameserver_set_id,
+                use_default_nameserver_set=use_default_nameserver_set,
+            ),
+        )
 
         zone: Zone = self._instance(Zone, response.json().get('response', {}))
 

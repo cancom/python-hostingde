@@ -12,7 +12,7 @@ def test_job_constructor():
         object_id="32957vwge715br",
         object_type="Zone",
         parent_job_id=None,
-        status=JobStatus.successful
+        status=JobStatus.successful,
     )
 
     assert job.account_id == 'account'
@@ -38,7 +38,7 @@ def test_job_to_str():
         object_id="32957vwge715br",
         object_type="Zone",
         parent_job_id=None,
-        status=JobStatus.successful
+        status=JobStatus.successful,
     )
 
     assert str(job) == "cloudfux.de -> successful"
@@ -56,7 +56,7 @@ def test_parse_job_object():
         objectId="32957vwge715br",
         objectType="Zone",
         parentJobId=None,
-        status='successful'
+        status='successful',
     )
 
     job: Job = Job.from_json(data)

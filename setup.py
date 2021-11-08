@@ -20,10 +20,10 @@ setup(
     description="Interact with HostingDe API",
     long_description=readme,
     long_description_content_type="text/markdown",
-    author="Benedict Becker",
-    author_email="benedict.becker93@gmail.com",
-    license="LGPLv3",
-    url="https://github.com/becelot/python-hostingde",
+    author="CANCOM OpenSource",
+    author_email="opensource@cancom.de",
+    license="MIT",
+    url="https://github.com/cancom/python-hostingde",
     packages=find_packages(exclude=["docs*", "tests*"]),
     install_requires=[
         "requests>=2.25.1",
@@ -31,14 +31,12 @@ setup(
         "marshmallow-dataclass==8.3.1",
         "marshmallow-enum==1.5.1",
         "urllib3~=1.26.3",
-        "responses~=0.13.1"
+        "responses~=0.13.1",
     ],
     python_requires=">=3.6.0",
     classifiers=[
-        "Development Status :: 5 - Production/Stable",
-        "Environment :: Console",
-        "Intended Audience :: System Administrators",
-        "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+        "Intended Audience :: Developers",
+        "License :: MIT",
         "Natural Language :: English",
         "Operating System :: POSIX",
         "Operating System :: Microsoft :: Windows",
@@ -50,4 +48,8 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
     ],
+    project_urls={
+        "Source": "https://github.com/cancom/python-hostingde",
+        "Bug Reports": "https://github.com/cancom/python-hostingde/issues",
+    },
 )

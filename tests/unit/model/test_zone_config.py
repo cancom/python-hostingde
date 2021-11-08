@@ -11,7 +11,7 @@ def test_zone_config_constructor():
         status='success',
         name="cloud.de",
         name_unicode=None,
-        email_address="test@example.org"
+        email_address="test@example.org",
     )
 
     assert zone_config.type == ZoneConfigType.NATIVE
@@ -34,7 +34,7 @@ def test_zone_config_parse():
         accountId='asfaegeg',
         status='success',
         name="cloud.de",
-        emailAddress="test@example.org"
+        emailAddress="test@example.org",
     )
 
     zone_config = ZoneConfig.from_json(data)
@@ -61,7 +61,7 @@ def test_zone_config_dump():
         status='success',
         name="cloud.de",
         name_unicode=None,
-        email_address="test@example.org"
+        email_address="test@example.org",
     )
 
     assert zone_config.to_json() == dict(
@@ -70,7 +70,7 @@ def test_zone_config_dump():
         accountId='asfaegeg',
         status='success',
         name="cloud.de",
-        emailAddress="test@example.org"
+        emailAddress="test@example.org",
     )
 
 

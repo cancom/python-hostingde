@@ -1,5 +1,5 @@
-from dataclasses import field, dataclass
-from typing import TypeVar, Generic, Optional, List, Type
+from dataclasses import dataclass, field
+from typing import Generic, List, Optional, Type, TypeVar
 
 from hostingde.exceptions import ClientException
 from hostingde.hostingde import HostingDeCore
@@ -23,15 +23,16 @@ class PaginatedRequest(Model):
 
 
 class HostingDePaginator(HostingDeCore, Generic[R]):
-
-    def __init__(self,
-                 parent: HostingDeCore,
-                 instance_class: Type[Model],
-                 url: str,
-                 count: Optional[int] = -1,
-                 limit: Optional[int] = 25,
-                 filter: Optional[FilterElement] = None,
-                 sort: Optional[SortConfiguration] = None):
+    def __init__(
+        self,
+        parent: HostingDeCore,
+        instance_class: Type[Model],
+        url: str,
+        count: Optional[int] = -1,
+        limit: Optional[int] = 25,
+        filter: Optional[FilterElement] = None,
+        sort: Optional[SortConfiguration] = None,
+    ):
         """
         Construct a new paginator.
 
@@ -66,12 +67,15 @@ class HostingDePaginator(HostingDeCore, Generic[R]):
 
     def _load_next(self):
         # No more results cached, and more available, load new results
-        response = self._request(self.url, model=PaginatedRequest(
-            filter=self.filter.to_filter_object() if self.filter is not None else None,
-            limit=self.limit,
-            page=self.current_page,
-            sort=self.sort
-        ))
+        response = self._request(
+            self.url,
+            model=PaginatedRequest(
+                filter=self.filter.to_filter_object() if self.filter is not None else None,
+                limit=self.limit,
+                page=self.current_page,
+                sort=self.sort,
+            ),
+        )
 
         data = response.json().get('response', {})
 

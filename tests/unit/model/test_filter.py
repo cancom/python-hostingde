@@ -1,10 +1,14 @@
 import pytest
 
-from hostingde.model.filter import FilterCondition, FilterCompilationException, FilterChain, FilterChainConnective
+from hostingde.model.filter import (
+    FilterChain,
+    FilterChainConnective,
+    FilterCompilationException,
+    FilterCondition,
+)
 
 
 class TestSimpleFilterCondition:
-
     def test_simple_equals_condition(self):
         filter = FilterCondition('key').eq('random').to_filter_object()
 
@@ -62,7 +66,6 @@ class TestSimpleFilterCondition:
 
 
 class TestSimpleFilterChain:
-
     def test_filter_bitand_chain(self):
         f1 = FilterCondition('field').eq('value')
         f2 = FilterCondition('field2').ne('value')
@@ -93,7 +96,6 @@ class TestSimpleFilterChain:
 
 
 class TestFilterIntoChainInsertion:
-
     def test_filter_ele_and_into_and(self):
         f1 = FilterCondition('field').eq('value')
         c1 = FilterCondition('field2').eq('radnom') & FilterCondition('field3').eq('something')
@@ -170,7 +172,6 @@ class TestFilterIntoChainInsertion:
 
 
 class TestFilterIntoChainAppend:
-
     def test_filter_ele_and_chain_and_append(self):
         f1 = FilterCondition('field').eq('value')
         c1 = FilterCondition('field2').eq('radnom') & FilterCondition('field3').eq('something')
@@ -241,7 +242,6 @@ class TestFilterIntoChainAppend:
 
 
 class TestFilterChainMerger:
-
     def test_chain_and_and_merge_and(self):
         c1 = FilterCondition('field2').eq('radnom') & FilterCondition('field3').eq('something')
         c2 = FilterCondition('file').eq('doc') & FilterCondition('type').eq('pdf') & FilterCondition('sig').eq('v4')

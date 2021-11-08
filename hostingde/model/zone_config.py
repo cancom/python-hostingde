@@ -1,18 +1,19 @@
 from dataclasses import dataclass
-from typing import Optional, List
+from enum import Enum
+from typing import List, Optional
 
 from marshmallow_enum import EnumField
 
 from hostingde.exceptions import ClientException
 from hostingde.model import Model
 from hostingde.model.soa_values import SoaValues
-from enum import Enum
 
 
 class ZoneConfigType(Enum):
     """
     Available relations for conditional filters.
     """
+
     NATIVE = 'NATIVE'
     MASTER = 'MASTER'
     SLAVE = 'SLAVE'
@@ -74,12 +75,22 @@ class ZoneConfig(Model):
     soa_values: Optional[SoaValues]
     type: ZoneConfigType = EnumField(ZoneConfigType)
 
-    def __init__(self, type: ZoneConfigType, id: Optional[str] = None, account_id: Optional[str] = None,
-                 status: Optional[str] = None, name: Optional[str] = None,
-                 name_unicode: Optional[str] = None, master_ip: Optional[str] = None,
-                 email_address: Optional[str] = None, dns_sec_mode: Optional[str] = None,
-                 zone_transfer_whitelist: Optional[List[str]] = None, last_change_date: Optional[str] = None,
-                 soa_values: Optional[SoaValues] = None, **kwargs):
+    def __init__(
+        self,
+        type: ZoneConfigType,
+        id: Optional[str] = None,
+        account_id: Optional[str] = None,
+        status: Optional[str] = None,
+        name: Optional[str] = None,
+        name_unicode: Optional[str] = None,
+        master_ip: Optional[str] = None,
+        email_address: Optional[str] = None,
+        dns_sec_mode: Optional[str] = None,
+        zone_transfer_whitelist: Optional[List[str]] = None,
+        last_change_date: Optional[str] = None,
+        soa_values: Optional[SoaValues] = None,
+        **kwargs,
+    ):
         """
         The ZoneConfig object defines a zone.
 
@@ -128,9 +139,16 @@ class ZoneConfig(Model):
         self.dns_sec_mode = dns_sec_mode
 
     @staticmethod
-    def create_new_zone_config(name: str, type: ZoneConfigType, master_ip: Optional[str] = None,
-                               id: Optional[str] = None, email_address: str = None, soa_values: SoaValues = None,
-                               name_unicode: str = None, zone_transfer_whitelist: List[str] = None):
+    def create_new_zone_config(
+        name: str,
+        type: ZoneConfigType,
+        master_ip: Optional[str] = None,
+        id: Optional[str] = None,
+        email_address: str = None,
+        soa_values: SoaValues = None,
+        name_unicode: str = None,
+        zone_transfer_whitelist: List[str] = None,
+    ):
         if master_ip is not None and type != ZoneConfigType.SLAVE:
             raise ClientException("MasterIp can only be set if the type is SLAVE")
 
@@ -151,7 +169,7 @@ class ZoneConfig(Model):
             email_address=email_address,
             soa_values=soa_values,
             type=type,
-            zone_transfer_whitelist=zone_transfer_whitelist
+            zone_transfer_whitelist=zone_transfer_whitelist,
         )
 
     def __str__(self):
