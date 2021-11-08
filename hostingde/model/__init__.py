@@ -1,8 +1,8 @@
 from typing import Any, Optional, Type, TypeVar
 
 import marshmallow_dataclass
-from marshmallow import post_dump, Schema
-from marshmallow.fields import Field
+from marshmallow import post_dump, Schema, post_load
+from marshmallow.fields import Field, Function, Method
 
 import hostingde
 
@@ -25,6 +25,11 @@ class CamelCaseSchema(Schema):
     def on_bind_field(self, field_name: str, field_obj: Field) -> None:
         """Use lower-camel-casing as external representation"""
         field_obj.data_key = camelcase(field_obj.data_key or field_name)
+
+    @post_load
+    def post_load(self, data: Any, **kwargs: Any) -> Any:
+        data["context"] = self.context.get('client', None)
+        return data
 
     @post_dump
     def remove_skip_values(self, data: dict, **kwargs: dict) -> dict:
@@ -69,18 +74,6 @@ class Model:
         if "context" in kwargs and isinstance(kwargs["context"], hostingde.HostingDeClient):
             self.client = kwargs["context"]
 
-    def get_client(self) -> 'hostingde.HostingDeClient':
-        """
-        Get the client used to create this object.
-
-        Throws an attribute error if no client is set.
-        :return: an initialized client
-        """
-        if not self.client:
-            raise AttributeError("Context not set")
-
-        return self.client
-
     @classmethod
     def from_json(cls: Type[T], data: dict, client: 'hostingde.HostingDeClient' = None) -> T:
         """
@@ -89,7 +82,6 @@ class Model:
         :param client: The client to use for this object
         :return: New instance of the class
         """
-        inst = marshmallow_dataclass.class_schema(cls, base_schema=CamelCaseSchema)().load(data)
-        inst.client = client
-
-        return inst
+        return marshmallow_dataclass\
+            .class_schema(cls, base_schema=CamelCaseSchema)(context={'client': client})\
+            .load(data)

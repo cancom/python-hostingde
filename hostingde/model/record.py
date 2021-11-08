@@ -61,6 +61,7 @@ class Record(Model):
         ttl: Optional[int] = None,
         priority: Optional[int] = None,
         last_change_date: Optional[str] = None,
+        **kwargs: Any
     ):
         """
         The DNS Record object is part of a zone. It is used to manage DNS resource records.
@@ -94,7 +95,7 @@ class Record(Model):
 
         :param last_change_date:   Date and time of last record modification
         """
-        super().__init__()
+        super().__init__(**kwargs)
         self.id = id
         self.zone_id = zone_id
         self.record_template_id = record_template_id

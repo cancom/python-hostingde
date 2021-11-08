@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, Any
 
 from hostingde.model import Model
 
@@ -17,12 +17,13 @@ class Account(Model):
     name: Optional[str]
     id: Optional[str]
 
-    def __init__(self, name: Optional[str], id: Optional[str]):
+    def __init__(self, name: Optional[str], id: Optional[str], **kwargs: Any):
         """
         The Account object a object.
         :param name: Namw of this Account
 
         :param id: ID of this Account.
         """
+        super().__init__(**kwargs)
         self.id: Optional[str] = id
         self.name: Optional[str] = name
