@@ -7,7 +7,7 @@ from hostingde.model import Model
 from hostingde.model.filter import FilterElement
 from hostingde.model.sort import SortConfiguration
 
-R = TypeVar('R')
+R = TypeVar('R', bound="Model")
 
 
 @dataclass
@@ -26,7 +26,7 @@ class HostingDePaginator(HostingDeCore, Generic[R]):
     def __init__(
         self,
         parent: HostingDeCore,
-        instance_class: Type[Model],
+        instance_class: Type[R],
         url: str,
         count: Optional[int] = -1,
         limit: Optional[int] = 25,
@@ -53,7 +53,7 @@ class HostingDePaginator(HostingDeCore, Generic[R]):
         self.filter = filter
         self.sort = sort
         self.url = url
-        self.count = count
+        self.count = count or -1
         self.instance_class = instance_class
         self._total_entries = -1
 
@@ -65,7 +65,7 @@ class HostingDePaginator(HostingDeCore, Generic[R]):
         """
         return self
 
-    def _load_next(self):
+    def _load_next(self) -> None:
         # No more results cached, and more available, load new results
         response = self._request(
             self.url,
@@ -88,7 +88,7 @@ class HostingDePaginator(HostingDeCore, Generic[R]):
 
         # Extract and convert the results
         if len(data.get('data', [])) > 0:
-            self.results.extend(map(lambda x: self.instance_class.from_json(x), data.get('data', [])))
+            self.results.extend(map(lambda x: self._instance(self.instance_class, x), data.get('data', [])))
 
     def __next__(self):
         """

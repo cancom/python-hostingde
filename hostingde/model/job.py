@@ -27,7 +27,7 @@ class Job(Model):
     object_id: Optional[str]
     object_type: Optional[str]
     parent_job_id: Optional[str]
-    status: JobStatus = EnumField(JobStatus)
+    status: Optional[JobStatus] = EnumField(JobStatus)
 
     def __init__(
         self,
@@ -41,8 +41,8 @@ class Job(Model):
         object_type: str = None,
         parent_job_id: str = None,
         status: JobStatus = None,
-        **kwargs,
-    ):
+        **kwargs: dict,
+    ) -> None:
         """
         Represents a job.
 

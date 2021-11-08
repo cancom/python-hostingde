@@ -89,7 +89,7 @@ class ZoneConfig(Model):
         zone_transfer_whitelist: Optional[List[str]] = None,
         last_change_date: Optional[str] = None,
         soa_values: Optional[SoaValues] = None,
-        **kwargs,
+        **kwargs: dict,
     ):
         """
         The ZoneConfig object defines a zone.
@@ -148,7 +148,7 @@ class ZoneConfig(Model):
         soa_values: SoaValues = None,
         name_unicode: str = None,
         zone_transfer_whitelist: List[str] = None,
-    ):
+    ) -> 'ZoneConfig':
         if master_ip is not None and type != ZoneConfigType.SLAVE:
             raise ClientException("MasterIp can only be set if the type is SLAVE")
 

@@ -15,8 +15,8 @@ class AsynchronousClient(ABC):
         limit: Optional[int] = None,
         filter: Optional[FilterElement] = None,
         sort: Optional[SortConfiguration] = None,
-        *args,
-        **kwargs
+        *args: list,
+        **kwargs: dict
     ) -> HostingDePaginator[Job]:
         """
         Retrieves a list of Job objects from the generic filtering and sorting API.
@@ -34,7 +34,7 @@ class JobWaiter:
         self.service = service
         self.id = id
 
-    def wait(self):
+    def wait(self) -> None:
         while True:
             jobs = self.service.jobs_find(
                 filter=FilterCondition('jobObjectId').eq(self.id)

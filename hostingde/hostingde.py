@@ -1,14 +1,17 @@
 import json.decoder
 from contextlib import contextmanager
-from typing import Optional, Type
+from typing import Generator, Optional, Type, TypeVar
 
 from requests import Response
 
+import hostingde
 from hostingde.exceptions import ApiException, ClientException
 from hostingde.model import Model
 from hostingde.model.filter import FilterElement
 from hostingde.model.sort import SortConfiguration
 from hostingde.session import HostingDeSession
+
+T = TypeVar('T', bound='Model')
 
 
 class HostingDeCore:
@@ -31,7 +34,7 @@ class HostingDeCore:
         """
         return self.session.post(*args, **kwargs)
 
-    def _request(self, url, model: Optional[Model] = None, **kwargs):
+    def _request(self, url: str, model: Optional[Model] = None, **kwargs: dict) -> Response:
         """
         Execute a new request, given an URL and a model. To generate a URL, you can use the _build_url() utility
         method.
@@ -56,7 +59,7 @@ class HostingDeCore:
 
         return response
 
-    def _instance(self, instance_type: Type[Model], data: dict):
+    def _instance(self, instance_type: Type[T], data: dict) -> T:
         """
         Reconstructs a model from the passed in result.
 
@@ -64,9 +67,9 @@ class HostingDeCore:
         :param data: The data used to reconstruct the model
         :return: The parsed model
         """
-        return instance_type.from_json(data)
+        return instance_type.from_json(data, self)  # type: ignore
 
-    def _bool(self, response: Response):
+    def _bool(self, response: Response) -> bool:
         """
         Converts a response to a boolean. True, if the request succeeded, otherwise False. Note that a status of
         'pending' also returns False. You may want to use the _async method to wait for the job to complete.
@@ -89,11 +92,11 @@ class HostingDeCore:
     def _iter(
         self,
         url: str,
-        instance_class: Type[Model],
+        instance_class: Type[T],
         filter: Optional[FilterElement] = None,
         limit: Optional[int] = None,
         sort: Optional[SortConfiguration] = None,
-    ):
+    ) -> 'hostingde.HostingDePaginator[T]':
         """
         Use the generic filtering and sorting API to paginate over results.
 
@@ -104,9 +107,8 @@ class HostingDeCore:
         :param sort: The sorting of the resulting list
         :return: The iterator for the resultset
         """
-        from hostingde.paginator import HostingDePaginator
 
-        return HostingDePaginator(self, instance_class, url, filter=filter, limit=limit, sort=sort)
+        return hostingde.HostingDePaginator(self, instance_class, url, filter=filter, limit=limit, sort=sort)
 
     def login(self, url: str, token: str) -> None:
         """
@@ -118,7 +120,7 @@ class HostingDeCore:
         self.session.base_uri = url
         self.session.token_auth(token)
 
-    def set_account_context(self, account_id: str):
+    def set_account_context(self, account_id: Optional[str]) -> None:
         """
         Sets the account context for this client.
 
@@ -128,7 +130,7 @@ class HostingDeCore:
         self.session.set_account_context(account_id)
 
     @contextmanager
-    def switch_account_context(self, account_id: str):
+    def switch_account_context(self, account_id: str) -> Generator[None, None, None]:
         """
         Temporarily switch the account context for this client. After the context guard closes, the context is reset to
         the account that was used prior to the guard.
@@ -136,7 +138,7 @@ class HostingDeCore:
         :param account_id: The account id to switch to
         :return:
         """
-        old_id: str = self.session.get_account_context()
+        old_id: Optional[str] = self.session.get_account_context()
 
         self.session.set_account_context(account_id)
 
@@ -145,7 +147,7 @@ class HostingDeCore:
         self.session.set_account_context(old_id)
 
     @staticmethod
-    def new_session():
+    def new_session() -> HostingDeSession:
         """
         Generates a new, unauthenticated session
 

@@ -16,7 +16,7 @@ class AccountClient(HostingDeCore):
         """
         super().__init__(parent)
 
-    def build_uri(self, method: str):
+    def build_uri(self, method: str) -> str:
         """
         Utility method to easily construct URLs for this service.
 
@@ -30,8 +30,8 @@ class AccountClient(HostingDeCore):
         limit: Optional[int] = None,
         filter: Optional[FilterElement] = None,
         sort: Optional[SortConfiguration] = None,
-        *args,
-        **kwargs
+        *args: list,
+        **kwargs: dict
     ) -> HostingDePaginator[Account]:
         """
         List subaccounts for the current context.

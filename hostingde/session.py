@@ -30,7 +30,7 @@ class HostingDeAuth(auth.AuthBase):
         if r.body is None:
             request = {}
         else:
-            request = json.loads(r.body.decode('utf-8'))
+            request = json.loads(r.body)
 
         request[self.token_field] = self.token
 
@@ -46,7 +46,7 @@ class HostingDeSession(requests.Session):
     Custom session implementation contains the Hosting.de authorization implementation
     """
 
-    def __init__(self):
+    def __init__(self: 'HostingDeSession'):
         super().__init__()
         self.base_uri: Optional[str] = None
 
@@ -66,7 +66,7 @@ class HostingDeSession(requests.Session):
         uri.extend(args)
         return "/".join(uri)
 
-    def set_endpoint(self, url: str):
+    def set_endpoint(self, url: str) -> None:
         """
         Set the base URL for this session
 
@@ -75,7 +75,7 @@ class HostingDeSession(requests.Session):
         """
         self.base_uri = url
 
-    def token_auth(self, token: str):
+    def token_auth(self, token: str) -> None:
         """
         Authenticate using a token
 
@@ -84,7 +84,7 @@ class HostingDeSession(requests.Session):
         """
         self.auth = HostingDeAuth(token)
 
-    def set_account_context(self, account_id: str):
+    def set_account_context(self, account_id: Optional[str]) -> None:
         """
         Switch context to subaccount
 
@@ -96,7 +96,7 @@ class HostingDeSession(requests.Session):
         else:
             raise ClientException('Subaccount could not be attached to request')
 
-    def get_account_context(self):
+    def get_account_context(self) -> Optional[str]:
         """
         Get the current account used for requests.
 

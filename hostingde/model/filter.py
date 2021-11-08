@@ -9,7 +9,7 @@ class FilterCompilationException(Exception):
 
 class FilterElement(ABC):
     @abstractmethod
-    def to_filter_object(self):
+    def to_filter_object(self) -> dict:
         """
         Converts the filter element into a filter object for API consumption.
         :return: The JSON object consumed by the API.
@@ -37,18 +37,24 @@ class FilterCondition(FilterElement):
     insensitive.
     """
 
-    def to_filter_object(self):
+    def to_filter_object(self) -> dict:
         """
         Converts the filter element into a filter object for API consumption.
         :return: The JSON object consumed by the API.
         :raise FilterCompilationException: If the filter did not contain the necessary fields.
         """
         if self.field is not None and self.value is not None:
-            return {"field": self.field, "value": self.value, "relation": str(self.relation.value)}
+            return {
+                "field": self.field,
+                "value": self.value,
+                **({"relation": self.relation.value} if self.relation else {}),
+            }
         else:
             raise FilterCompilationException(f'Value for field "{self.field}" was not specified.')
 
-    def __init__(self, field: str, value: Optional[str] = None, relation: Optional[FilterConditionRelation] = None):
+    def __init__(
+        self, field: str, value: Union[str, int, float, None] = None, relation: FilterConditionRelation = None
+    ):
         """
         In its simplest form, the filter parameter takes a field and a value parameter. The field element is restricted
         to a list of field names which vary from listing to listing.
@@ -68,10 +74,10 @@ class FilterCondition(FilterElement):
         {'field': 'otherField', 'value': 'me', 'relation': 'unequal'}]}
         """
         self.field: str = field
-        self.value: str = value
+        self.value: Union[str, int, float, None] = value
         self.relation: Optional[FilterConditionRelation] = relation
 
-    def eq(self, other: Union[str, int, float]):
+    def eq(self, other: Union[str, int, float]) -> 'FilterCondition':
         """
         Override == setter for value.
         :param other: The value to be set
@@ -81,7 +87,7 @@ class FilterCondition(FilterElement):
         self.relation = FilterConditionRelation.EQUAL
         return self
 
-    def ne(self, other: Union[str, int, float]):
+    def ne(self, other: Union[str, int, float]) -> 'FilterCondition':
         """
         Override != setter for value.
         :param other: The value to be set
@@ -91,7 +97,7 @@ class FilterCondition(FilterElement):
         self.relation = FilterConditionRelation.UNEQUAL
         return self
 
-    def lt(self, other: Union[str, int, float]):
+    def lt(self, other: Union[str, int, float]) -> 'FilterCondition':
         """
         Override < setter for value.
         :param other: The value to be set
@@ -101,7 +107,7 @@ class FilterCondition(FilterElement):
         self.relation = FilterConditionRelation.LESS
         return self
 
-    def le(self, other: Union[str, int, float]):
+    def le(self, other: Union[str, int, float]) -> 'FilterCondition':
         """
         Override <= setter for value.
         :param other: The value to be set
@@ -111,7 +117,7 @@ class FilterCondition(FilterElement):
         self.relation = FilterConditionRelation.LESS_EQUAL
         return self
 
-    def gt(self, other: Union[str, int, float]):
+    def gt(self, other: Union[str, int, float]) -> 'FilterCondition':
         """
         Override > setter for value.
         :param other: The value to be set
@@ -121,7 +127,7 @@ class FilterCondition(FilterElement):
         self.relation = FilterConditionRelation.GREATER
         return self
 
-    def ge(self, other: Union[str, int, float]):
+    def ge(self, other: Union[str, int, float]) -> 'FilterCondition':
         """
         Override >= setter for value.
         :param other: The value to be set
@@ -131,7 +137,7 @@ class FilterCondition(FilterElement):
         self.relation = FilterConditionRelation.GREATER_EQUAL
         return self
 
-    def startswith(self, begin: str):
+    def startswith(self, begin: str) -> 'FilterCondition':
         """
         Filter for entries starting with a specific pattern
         :param begin: The begin filter
@@ -141,7 +147,7 @@ class FilterCondition(FilterElement):
         self.relation = FilterConditionRelation.EQUAL
         return self
 
-    def contains(self, value: str):
+    def contains(self, value: str) -> 'FilterCondition':
         """
         Filter condition with contains semantic. Filters for entities that contain the given value
         :param value: The contain filter value
@@ -203,7 +209,7 @@ class FilterChain(FilterElement):
     are AND and OR connectives.
     """
 
-    def to_filter_object(self):
+    def to_filter_object(self) -> dict:
         """
         Recursively builds the filter objects to be constructed.
         :return:
@@ -263,6 +269,8 @@ class FilterChain(FilterElement):
                 return FilterChain(FilterChainConnective.AND).add_filter(self).add_filter(other)
             else:
                 raise FilterCompilationException('Unknown filter element connective operation')
+        else:
+            raise FilterCompilationException('Unknown filter element type')
 
     def __or__(self, other: FilterElement) -> 'FilterChain':
         """
@@ -291,3 +299,5 @@ class FilterChain(FilterElement):
                 return FilterChain(FilterChainConnective.OR).add_filter(self).add_filter(other)
             else:
                 raise FilterCompilationException('Unknown filter element connective operation')
+        else:
+            raise FilterCompilationException('Unknown filter element type')

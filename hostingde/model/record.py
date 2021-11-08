@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from enum import Enum
-from typing import Optional
+from typing import Any, Optional
 
 from marshmallow_enum import EnumField
 
@@ -105,13 +105,13 @@ class Record(Model):
         self.priority = priority
         self.last_change_date = last_change_date
 
-    def __eq__(self, other):
+    def __eq__(self, other: Any) -> bool:
         if not isinstance(other, Record):
             return False
 
         return self.name == other.name and self.type == other.type and self.content == other.content
 
-    def __hash__(self):
+    def __hash__(self) -> int:
         return hash(f'Name:{self.name}Type:{self.type.value if self.type else "No type"}Content:{self.content}')
 
     def __str__(self):
@@ -119,6 +119,6 @@ class Record(Model):
 
     @staticmethod
     def create_new_record(
-        name: str, type: RecordType, content: str, ttl: Optional[int] = 86400, priority: Optional[str] = None
-    ):
+        name: str, type: RecordType, content: str, ttl: Optional[int] = 86400, priority: Optional[int] = None
+    ) -> 'Record':
         return Record(name=name, type=type, content=content, ttl=ttl, priority=priority)
