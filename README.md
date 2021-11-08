@@ -1,4 +1,4 @@
-# Hosting.de Client-Library [![codecov](https://codecov.io/gh/becelot/python-hostingde/branch/main/graph/badge.svg?token=C5SXI4B7PV)](https://codecov.io/gh/becelot/python-hostingde)
+# Hosting.de Client-Library [![codecov](https://codecov.io/gh/cancom/python-hostingde/branch/main/graph/badge.svg?token=C5SXI4B7PV)](https://codecov.io/gh/cancom/python-hostingde)
 
 An unofficial client library for the [hosting.de API](https://hosting.de/api/).
 
