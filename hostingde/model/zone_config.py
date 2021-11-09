@@ -68,6 +68,7 @@ class ZoneConfig(Model):
     name: Optional[str]
     name_unicode: Optional[str]
     dns_sec_mode: Optional[str]
+    dns_server_group_id: Optional[str]
     master_ip: Optional[str]
     email_address: Optional[str]
     zone_transfer_whitelist: Optional[List[str]]
@@ -89,6 +90,7 @@ class ZoneConfig(Model):
         zone_transfer_whitelist: Optional[List[str]] = None,
         last_change_date: Optional[str] = None,
         soa_values: Optional[SoaValues] = None,
+        dns_server_group_id: Optional[str] = None,
         **kwargs: dict,
     ):
         """
@@ -137,6 +139,7 @@ class ZoneConfig(Model):
         self.last_change_date: Optional[str] = last_change_date
         self.soa_values: Optional[SoaValues] = soa_values
         self.dns_sec_mode = dns_sec_mode
+        self.dns_server_group_id = dns_server_group_id
 
     @staticmethod
     def create_new_zone_config(
