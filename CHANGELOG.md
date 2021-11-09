@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.3.0 (2021-11-09)
+### Feature
+* **dns:** Adds support for dnsServerGroupId ([#9](https://github.com/cancom/python-hostingde/issues/9)) ([`aa66e75`](https://github.com/cancom/python-hostingde/commit/aa66e7526bd17c5a13f76780b8f5ff81c89332a6))
+
 ## v0.2.1 (2021-11-09)
 ### Fix
 * Use valid pypi classifier ([`25e4d70`](https://github.com/cancom/python-hostingde/commit/25e4d708c6a9eed7b347a53b65b1f80cf7cb8548))
