@@ -36,7 +36,7 @@ setup(
     python_requires=">=3.6.0",
     classifiers=[
         "Intended Audience :: Developers",
-        "License :: MIT",
+        "License :: OSI Approved :: MIT License",
         "Natural Language :: English",
         "Operating System :: POSIX",
         "Operating System :: Microsoft :: Windows",
