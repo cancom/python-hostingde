@@ -90,7 +90,7 @@ class ZoneConfig(Model):
         zone_transfer_whitelist: Optional[List[str]] = None,
         last_change_date: Optional[str] = None,
         soa_values: Optional[SoaValues] = None,
-        dns_server_group_id: Optional[str] = None
+        dns_server_group_id: Optional[str] = None,
         **kwargs: dict,
     ):
         """
