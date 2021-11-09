@@ -58,7 +58,7 @@ class Job(Model):
         :param status: The current status of the job, e.g. 'inProgress', 'successfull'
         :param kwargs:
         """
-        super().__init__()
+        super().__init__(**kwargs)
         self.account_id = account_id
         self.action = action
         self.add_date = add_date

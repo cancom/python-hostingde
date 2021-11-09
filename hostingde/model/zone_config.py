@@ -124,7 +124,7 @@ class ZoneConfig(Model):
         :param soa_values: Values for the SOA record of the zone. If it is left empty an SOA record with default values
                            will be created.
         """
-        super().__init__()
+        super().__init__(**kwargs)
         self.id: Optional[str] = id
         self.account_id: Optional[str] = account_id
         self.status: Optional[str] = status

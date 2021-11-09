@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from typing import Any
 
 from hostingde.model import Model
 
@@ -19,6 +20,7 @@ class SoaValues(Model):
         expire: int = 3600000,
         ttl: int = 172800,
         negative_ttl: int = 3600,
+        **kwargs: Any
     ):
         """
         The SOA values object contains the time (seconds) used in a zone's SOA record. The maximum number of seconds is
@@ -31,7 +33,7 @@ class SoaValues(Model):
         :param ttl: TTL for the SOA record. Default: 172800, minimum: 60.
         :param negative_ttl: Negative TTL for the SOA record. Default: 3600, minimum: 60.
         """
-        super().__init__()
+        super().__init__(**kwargs)
         self.refresh: int = refresh
         self.retry: int = retry
         self.expire: int = expire

@@ -55,7 +55,7 @@ class HostingDeCore:
             if error_check.get('status', 'error') == 'error':
                 raise ApiException(error_check)
         except json.decoder.JSONDecodeError:
-            raise ClientException('Error while reading response from server. ' 'Is your endpoint configured correctly?')
+            raise ClientException('Error while reading response from server. Is your endpoint configured correctly?')
 
         return response
 

@@ -10,59 +10,59 @@ from hostingde.model.filter import (
 
 class TestSimpleFilterCondition:
     def test_simple_equals_condition(self):
-        filter = FilterCondition('key').eq('random').to_filter_object()
+        filter_object = FilterCondition('key').eq('random').to_filter_object()
 
-        assert filter.get('field', '') == 'key'
-        assert filter.get('value', '') == 'random'
-        assert filter.get('relation', '') == 'equal'
+        assert filter_object.get('field', '') == 'key'
+        assert filter_object.get('value', '') == 'random'
+        assert filter_object.get('relation', '') == 'equal'
 
     def test_simple_not_equals_condition(self):
-        filter = FilterCondition('key').ne('random').to_filter_object()
+        filter_object = FilterCondition('key').ne('random').to_filter_object()
 
-        assert filter.get('field', '') == 'key'
-        assert filter.get('value', '') == 'random'
-        assert filter.get('relation', '') == 'unequal'
+        assert filter_object.get('field', '') == 'key'
+        assert filter_object.get('value', '') == 'random'
+        assert filter_object.get('relation', '') == 'unequal'
 
     def test_simple_lesser_than_condition(self):
-        filter = FilterCondition('key').lt('random').to_filter_object()
+        filter_object = FilterCondition('key').lt('random').to_filter_object()
 
-        assert filter.get('field', '') == 'key'
-        assert filter.get('value', '') == 'random'
-        assert filter.get('relation', '') == 'less'
+        assert filter_object.get('field', '') == 'key'
+        assert filter_object.get('value', '') == 'random'
+        assert filter_object.get('relation', '') == 'less'
 
     def test_simple_lesser_equals_condition(self):
-        filter = FilterCondition('key').le('random').to_filter_object()
+        filter_object = FilterCondition('key').le('random').to_filter_object()
 
-        assert filter.get('field', '') == 'key'
-        assert filter.get('value', '') == 'random'
-        assert filter.get('relation', '') == 'lessEqual'
+        assert filter_object.get('field', '') == 'key'
+        assert filter_object.get('value', '') == 'random'
+        assert filter_object.get('relation', '') == 'lessEqual'
 
     def test_simple_greater_than_condition(self):
-        filter = FilterCondition('key').gt('random').to_filter_object()
+        filter_object = FilterCondition('key').gt('random').to_filter_object()
 
-        assert filter.get('field', '') == 'key'
-        assert filter.get('value', '') == 'random'
-        assert filter.get('relation', '') == 'greater'
+        assert filter_object.get('field', '') == 'key'
+        assert filter_object.get('value', '') == 'random'
+        assert filter_object.get('relation', '') == 'greater'
 
     def test_simple_greater_equals_condition(self):
-        filter = FilterCondition('key').ge('random').to_filter_object()
+        filter_object = FilterCondition('key').ge('random').to_filter_object()
 
-        assert filter.get('field', '') == 'key'
-        assert filter.get('value', '') == 'random'
-        assert filter.get('relation', '') == 'greaterEqual'
+        assert filter_object.get('field', '') == 'key'
+        assert filter_object.get('value', '') == 'random'
+        assert filter_object.get('relation', '') == 'greaterEqual'
 
     def test_simple_startswith_condition(self):
-        filter = FilterCondition('key').startswith('random').to_filter_object()
+        filter_object = FilterCondition('key').startswith('random').to_filter_object()
 
-        assert filter.get('field', '') == 'key'
-        assert filter.get('value', '') == 'random*'
-        assert filter.get('relation', '') == 'equal'
+        assert filter_object.get('field', '') == 'key'
+        assert filter_object.get('value', '') == 'random*'
+        assert filter_object.get('relation', '') == 'equal'
 
     def test_condition_needs_value(self):
-        filter = FilterCondition('key')
+        filter_object = FilterCondition('key')
 
         with pytest.raises(FilterCompilationException):
-            filter.to_filter_object()
+            filter_object.to_filter_object()
 
 
 class TestSimpleFilterChain:
@@ -72,11 +72,11 @@ class TestSimpleFilterChain:
 
         chain = f1 & f2
 
-        filter = chain.to_filter_object()
+        filter_object = chain.to_filter_object()
 
-        assert filter is not None
-        assert filter.get('subFilterConnective') == 'and'
-        assert len(filter.get('subFilter', [])) == 2
+        assert filter_object is not None
+        assert filter_object.get('subFilterConnective') == 'and'
+        assert len(filter_object.get('subFilter', [])) == 2
 
     def test_filter_bitor_chain(self):
         f1 = FilterCondition('field').eq('value')
@@ -84,11 +84,11 @@ class TestSimpleFilterChain:
 
         chain = f1 | f2
 
-        filter = chain.to_filter_object()
+        filter_object = chain.to_filter_object()
 
-        assert filter is not None
-        assert filter.get('subFilterConnective') == 'or'
-        assert len(filter.get('subFilter', [])) == 2
+        assert filter_object is not None
+        assert filter_object.get('subFilterConnective') == 'or'
+        assert len(filter_object.get('subFilter', [])) == 2
 
     def test_empty_chain_should_throw(self):
         with pytest.raises(FilterCompilationException):
@@ -102,11 +102,11 @@ class TestFilterIntoChainInsertion:
 
         chain = f1 & c1
 
-        filter = chain.to_filter_object()
+        filter_object = chain.to_filter_object()
 
-        assert filter is not None
-        assert filter.get('subFilterConnective') == 'and'
-        assert len(filter.get('subFilter', [])) == 3
+        assert filter_object is not None
+        assert filter_object.get('subFilterConnective') == 'and'
+        assert len(filter_object.get('subFilter', [])) == 3
 
     def test_filter_ele_or_into_or(self):
         f1 = FilterCondition('field').eq('value')
@@ -114,11 +114,11 @@ class TestFilterIntoChainInsertion:
 
         chain = f1 | c1
 
-        filter = chain.to_filter_object()
+        filter_object = chain.to_filter_object()
 
-        assert filter is not None
-        assert filter.get('subFilterConnective') == 'or'
-        assert len(filter.get('subFilter', [])) == 3
+        assert filter_object is not None
+        assert filter_object.get('subFilterConnective') == 'or'
+        assert len(filter_object.get('subFilter', [])) == 3
 
     def test_filter_ele_and_into_or(self):
         f1 = FilterCondition('field').eq('value')
@@ -126,13 +126,13 @@ class TestFilterIntoChainInsertion:
 
         chain = f1 & c1
 
-        filter = chain.to_filter_object()
+        filter_object = chain.to_filter_object()
 
-        assert filter is not None
-        assert filter.get('subFilterConnective') == 'and'
-        assert len(filter.get('subFilter', [])) == 2
-        assert filter.get('subFilter', [])[1].get('subFilterConnective') == 'or'
-        assert len(filter.get('subFilter', [])[1].get('subFilter')) == 2
+        assert filter_object is not None
+        assert filter_object.get('subFilterConnective') == 'and'
+        assert len(filter_object.get('subFilter', [])) == 2
+        assert filter_object.get('subFilter', [])[1].get('subFilterConnective') == 'or'
+        assert len(filter_object.get('subFilter', [])[1].get('subFilter')) == 2
 
     def test_filter_ele_or_into_and(self):
         f1 = FilterCondition('field').eq('value')
@@ -140,13 +140,13 @@ class TestFilterIntoChainInsertion:
 
         chain = f1 | c1
 
-        filter = chain.to_filter_object()
+        filter_object = chain.to_filter_object()
 
-        assert filter is not None
-        assert filter.get('subFilterConnective') == 'or'
-        assert len(filter.get('subFilter', [])) == 2
-        assert filter.get('subFilter', [])[1].get('subFilterConnective') == 'and'
-        assert len(filter.get('subFilter', [])[1].get('subFilter')) == 2
+        assert filter_object is not None
+        assert filter_object.get('subFilterConnective') == 'or'
+        assert len(filter_object.get('subFilter', [])) == 2
+        assert filter_object.get('subFilter', [])[1].get('subFilterConnective') == 'and'
+        assert len(filter_object.get('subFilter', [])[1].get('subFilter')) == 2
 
     def test_filter_ele_or_should_throw_for_none_element(self):
         with pytest.raises(FilterCompilationException):
@@ -178,11 +178,11 @@ class TestFilterIntoChainAppend:
 
         chain = c1 & f1
 
-        filter = chain.to_filter_object()
+        filter_object = chain.to_filter_object()
 
-        assert filter is not None
-        assert filter.get('subFilterConnective') == 'and'
-        assert len(filter.get('subFilter', [])) == 3
+        assert filter_object is not None
+        assert filter_object.get('subFilterConnective') == 'and'
+        assert len(filter_object.get('subFilter', [])) == 3
 
     def test_filter_ele_or_chain_or_append(self):
         f1 = FilterCondition('field').eq('value')
@@ -190,11 +190,11 @@ class TestFilterIntoChainAppend:
 
         chain = c1 | f1
 
-        filter = chain.to_filter_object()
+        filter_object = chain.to_filter_object()
 
-        assert filter is not None
-        assert filter.get('subFilterConnective') == 'or'
-        assert len(filter.get('subFilter', [])) == 3
+        assert filter_object is not None
+        assert filter_object.get('subFilterConnective') == 'or'
+        assert len(filter_object.get('subFilter', [])) == 3
 
     def test_filter_ele_or_chain_and_append(self):
         f1 = FilterCondition('field').eq('value')
@@ -202,13 +202,13 @@ class TestFilterIntoChainAppend:
 
         chain = c1 & f1
 
-        filter = chain.to_filter_object()
+        filter_object = chain.to_filter_object()
 
-        assert filter is not None
-        assert filter.get('subFilterConnective') == 'and'
-        assert len(filter.get('subFilter', [])) == 2
-        assert filter.get('subFilter', [])[0].get('subFilterConnective') == 'or'
-        assert len(filter.get('subFilter', [])[0].get('subFilter')) == 2
+        assert filter_object is not None
+        assert filter_object.get('subFilterConnective') == 'and'
+        assert len(filter_object.get('subFilter', [])) == 2
+        assert filter_object.get('subFilter', [])[0].get('subFilterConnective') == 'or'
+        assert len(filter_object.get('subFilter', [])[0].get('subFilter')) == 2
 
     def test_filter_ele_and_chain_or_append(self):
         f1 = FilterCondition('field').eq('value')
@@ -216,13 +216,13 @@ class TestFilterIntoChainAppend:
 
         chain = c1 | f1
 
-        filter = chain.to_filter_object()
+        filter_object = chain.to_filter_object()
 
-        assert filter is not None
-        assert filter.get('subFilterConnective') == 'or'
-        assert len(filter.get('subFilter', [])) == 2
-        assert filter.get('subFilter', [])[0].get('subFilterConnective') == 'and'
-        assert len(filter.get('subFilter', [])[0].get('subFilter')) == 2
+        assert filter_object is not None
+        assert filter_object.get('subFilterConnective') == 'or'
+        assert len(filter_object.get('subFilter', [])) == 2
+        assert filter_object.get('subFilter', [])[0].get('subFilterConnective') == 'and'
+        assert len(filter_object.get('subFilter', [])[0].get('subFilter')) == 2
 
     def test_filter_ele_and_chain_append_invalid_should_throw(self):
         f1 = FilterCondition('field').eq('value')
@@ -248,11 +248,11 @@ class TestFilterChainMerger:
 
         chain = c1 & c2
 
-        filter = chain.to_filter_object()
+        filter_object = chain.to_filter_object()
 
-        assert filter is not None
-        assert filter.get('subFilterConnective') == 'and'
-        assert len(filter.get('subFilter', [])) == 5
+        assert filter_object is not None
+        assert filter_object.get('subFilterConnective') == 'and'
+        assert len(filter_object.get('subFilter', [])) == 5
 
     def test_chain_and_or_merge_and(self):
         c1 = FilterCondition('field2').eq('radnom') & FilterCondition('field3').eq('something')
@@ -260,13 +260,13 @@ class TestFilterChainMerger:
 
         chain = c1 & c2
 
-        filter = chain.to_filter_object()
+        filter_object = chain.to_filter_object()
 
-        assert filter is not None
-        assert filter.get('subFilterConnective') == 'and'
-        assert len(filter.get('subFilter', [])) == 3
-        assert filter.get('subFilter')[2].get('subFilterConnective') == 'or'
-        assert len(filter.get('subFilter')[2].get('subFilter')) == 3
+        assert filter_object is not None
+        assert filter_object.get('subFilterConnective') == 'and'
+        assert len(filter_object.get('subFilter', [])) == 3
+        assert filter_object.get('subFilter')[2].get('subFilterConnective') == 'or'
+        assert len(filter_object.get('subFilter')[2].get('subFilter')) == 3
 
     def test_chain_or_and_merge_and(self):
         c1 = FilterCondition('field2').eq('radnom') | FilterCondition('field3').eq('something')
@@ -274,13 +274,13 @@ class TestFilterChainMerger:
 
         chain = c1 & c2
 
-        filter = chain.to_filter_object()
+        filter_object = chain.to_filter_object()
 
-        assert filter is not None
-        assert filter.get('subFilterConnective') == 'and'
-        assert len(filter.get('subFilter', [])) == 4
-        assert filter.get('subFilter')[0].get('subFilterConnective') == 'or'
-        assert len(filter.get('subFilter')[0].get('subFilter')) == 2
+        assert filter_object is not None
+        assert filter_object.get('subFilterConnective') == 'and'
+        assert len(filter_object.get('subFilter', [])) == 4
+        assert filter_object.get('subFilter')[0].get('subFilterConnective') == 'or'
+        assert len(filter_object.get('subFilter')[0].get('subFilter')) == 2
 
     def test_chain_or_or_merge_and(self):
         c1 = FilterCondition('field2').eq('radnom') | FilterCondition('field3').eq('something')
@@ -288,15 +288,15 @@ class TestFilterChainMerger:
 
         chain = c1 & c2
 
-        filter = chain.to_filter_object()
+        filter_object = chain.to_filter_object()
 
-        assert filter is not None
-        assert filter.get('subFilterConnective') == 'and'
-        assert len(filter.get('subFilter', [])) == 2
-        assert filter.get('subFilter')[0].get('subFilterConnective') == 'or'
-        assert len(filter.get('subFilter')[0].get('subFilter')) == 2
-        assert filter.get('subFilter')[1].get('subFilterConnective') == 'or'
-        assert len(filter.get('subFilter')[1].get('subFilter')) == 3
+        assert filter_object is not None
+        assert filter_object.get('subFilterConnective') == 'and'
+        assert len(filter_object.get('subFilter', [])) == 2
+        assert filter_object.get('subFilter')[0].get('subFilterConnective') == 'or'
+        assert len(filter_object.get('subFilter')[0].get('subFilter')) == 2
+        assert filter_object.get('subFilter')[1].get('subFilterConnective') == 'or'
+        assert len(filter_object.get('subFilter')[1].get('subFilter')) == 3
 
     def test_chain_and_should_throw_if_invalid_connective(self):
         c1 = FilterCondition('field2').eq('radnom') | FilterCondition('field3').eq('something')
@@ -313,11 +313,11 @@ class TestFilterChainMerger:
 
         chain = c1 | c2
 
-        filter = chain.to_filter_object()
+        filter_object = chain.to_filter_object()
 
-        assert filter is not None
-        assert filter.get('subFilterConnective') == 'or'
-        assert len(filter.get('subFilter', [])) == 5
+        assert filter_object is not None
+        assert filter_object.get('subFilterConnective') == 'or'
+        assert len(filter_object.get('subFilter', [])) == 5
 
     def test_chain_or_and_merge_or(self):
         c1 = FilterCondition('field2').eq('radnom') | FilterCondition('field3').eq('something')
@@ -325,13 +325,13 @@ class TestFilterChainMerger:
 
         chain = c1 | c2
 
-        filter = chain.to_filter_object()
+        filter_object = chain.to_filter_object()
 
-        assert filter is not None
-        assert filter.get('subFilterConnective') == 'or'
-        assert len(filter.get('subFilter', [])) == 3
-        assert filter.get('subFilter')[2].get('subFilterConnective') == 'and'
-        assert len(filter.get('subFilter')[2].get('subFilter')) == 3
+        assert filter_object is not None
+        assert filter_object.get('subFilterConnective') == 'or'
+        assert len(filter_object.get('subFilter', [])) == 3
+        assert filter_object.get('subFilter')[2].get('subFilterConnective') == 'and'
+        assert len(filter_object.get('subFilter')[2].get('subFilter')) == 3
 
     def test_chain_and_or_merge_or(self):
         c1 = FilterCondition('field2').eq('radnom') & FilterCondition('field3').eq('something')
@@ -339,13 +339,13 @@ class TestFilterChainMerger:
 
         chain = c1 | c2
 
-        filter = chain.to_filter_object()
+        filter_object = chain.to_filter_object()
 
-        assert filter is not None
-        assert filter.get('subFilterConnective') == 'or'
-        assert len(filter.get('subFilter', [])) == 4
-        assert filter.get('subFilter')[0].get('subFilterConnective') == 'and'
-        assert len(filter.get('subFilter')[0].get('subFilter')) == 2
+        assert filter_object is not None
+        assert filter_object.get('subFilterConnective') == 'or'
+        assert len(filter_object.get('subFilter', [])) == 4
+        assert filter_object.get('subFilter')[0].get('subFilterConnective') == 'and'
+        assert len(filter_object.get('subFilter')[0].get('subFilter')) == 2
 
     def test_chain_and_and_merge_or(self):
         c1 = FilterCondition('field2').eq('radnom') & FilterCondition('field3').eq('something')
@@ -353,15 +353,15 @@ class TestFilterChainMerger:
 
         chain = c1 | c2
 
-        filter = chain.to_filter_object()
+        filter_object = chain.to_filter_object()
 
-        assert filter is not None
-        assert filter.get('subFilterConnective') == 'or'
-        assert len(filter.get('subFilter', [])) == 2
-        assert filter.get('subFilter')[0].get('subFilterConnective') == 'and'
-        assert len(filter.get('subFilter')[0].get('subFilter')) == 2
-        assert filter.get('subFilter')[1].get('subFilterConnective') == 'and'
-        assert len(filter.get('subFilter')[1].get('subFilter')) == 3
+        assert filter_object is not None
+        assert filter_object.get('subFilterConnective') == 'or'
+        assert len(filter_object.get('subFilter', [])) == 2
+        assert filter_object.get('subFilter')[0].get('subFilterConnective') == 'and'
+        assert len(filter_object.get('subFilter')[0].get('subFilter')) == 2
+        assert filter_object.get('subFilter')[1].get('subFilterConnective') == 'and'
+        assert len(filter_object.get('subFilter')[1].get('subFilter')) == 3
 
     def test_chain_or_should_throw_if_invalid_connective(self):
         c1 = FilterCondition('field2').eq('radnom') | FilterCondition('field3').eq('something')
