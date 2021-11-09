@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.2.1 (2021-11-09)
+### Fix
+* Use valid pypi classifier ([`25e4d70`](https://github.com/cancom/python-hostingde/commit/25e4d708c6a9eed7b347a53b65b1f80cf7cb8548))
+
 ## v0.2.0 (2021-11-09)
 ### Feature
 * Adds client dependency injection to model ([#8](https://github.com/cancom/python-hostingde/issues/8)) ([`07a9d52`](https://github.com/cancom/python-hostingde/commit/07a9d525d6adfa6490a31794adabd20eeafc2a19))
