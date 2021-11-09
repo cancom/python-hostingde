@@ -1,7 +1,6 @@
 from dataclasses import field
 from typing import List
 
-from marshmallow.fields import Method
 from marshmallow_dataclass import dataclass
 
 from hostingde.model import Model

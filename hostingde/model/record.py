@@ -61,7 +61,7 @@ class Record(Model):
         ttl: Optional[int] = None,
         priority: Optional[int] = None,
         last_change_date: Optional[str] = None,
-        **kwargs: Any
+        **kwargs: Any,
     ):
         """
         The DNS Record object is part of a zone. It is used to manage DNS resource records.

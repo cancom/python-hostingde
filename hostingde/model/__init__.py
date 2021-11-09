@@ -1,8 +1,8 @@
 from typing import Any, Optional, Type, TypeVar
 
 import marshmallow_dataclass
-from marshmallow import post_dump, Schema, post_load
-from marshmallow.fields import Field, Function, Method
+from marshmallow import post_dump, post_load, Schema
+from marshmallow.fields import Field
 
 import hostingde
 
@@ -82,6 +82,6 @@ class Model:
         :param client: The client to use for this object
         :return: New instance of the class
         """
-        return marshmallow_dataclass\
-            .class_schema(cls, base_schema=CamelCaseSchema)(context={'client': client})\
-            .load(data)
+        return marshmallow_dataclass.class_schema(cls, base_schema=CamelCaseSchema)(context={'client': client}).load(
+            data
+        )

@@ -12,7 +12,7 @@ def test_zone_parse():
             name="cloud.de",
             emailAddress="test@example.org",
         ),
-        records=list()
+        records=list(),
     )
 
     client = HostingDeClient()
