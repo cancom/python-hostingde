@@ -12,6 +12,7 @@ def test_record_constructor():
         content="127.0.0.1",
         priority=0,
         ttl=0,
+        comments="Some comment",
     )
 
     assert record.id == '234987fds'
@@ -25,6 +26,7 @@ def test_record_constructor():
     assert record.content == "127.0.0.1"
     assert record.priority == 0
     assert record.ttl == 0
+    assert record.comments == "Some comment"
 
 
 def test_parse_record():

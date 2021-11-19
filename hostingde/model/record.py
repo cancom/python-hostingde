@@ -45,6 +45,7 @@ class Record(Model):
     record_template_id: Optional[str]
     name: Optional[str]
     content: Optional[str]
+    comments: Optional[str]
     ttl: Optional[int]
     priority: Optional[int]
     last_change_date: Optional[str]
@@ -61,6 +62,7 @@ class Record(Model):
         ttl: Optional[int] = None,
         priority: Optional[int] = None,
         last_change_date: Optional[str] = None,
+        comments: Optional[str] = None,
         **kwargs: Any,
     ):
         """
@@ -87,6 +89,8 @@ class Record(Model):
         :param content:            Content of the record. Always required in create requests and in all other requests
                                    if no id is provided.
 
+        :param comments:           Comments for the record. Optional field that you can set for documentation purposes.
+
         :param ttl:                TTL of the record in seconds. Minimum value: 60. Maximum value: 31556926 (one year).
                                    Exceeding the maximum or undercutting the minimum value will abort the request and
                                    result in an error.
@@ -102,6 +106,7 @@ class Record(Model):
         self.name = name
         self.type = type
         self.content = content
+        self.comments = comments
         self.ttl = ttl
         self.priority = priority
         self.last_change_date = last_change_date
