@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.4.1 (2021-11-21)
+### Fix
+* Renames zone_id to zone_config_id in Record model ([#11](https://github.com/cancom/python-hostingde/issues/11)) ([`45f4678`](https://github.com/cancom/python-hostingde/commit/45f46781b3070041252cc420552140181f08e784))
+
 ## v0.4.0 (2021-11-19)
 ### Feature
 * Adds support for record comments ([#10](https://github.com/cancom/python-hostingde/issues/10)) ([`1dc5eaa`](https://github.com/cancom/python-hostingde/commit/1dc5eaa73b387760c90396b63e187e3f54f880cf))
