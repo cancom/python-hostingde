@@ -41,7 +41,7 @@ class Record(Model):
     """The DNS Record object is part of a zone. It is used to manage DNS resource records."""
 
     id: Optional[str]
-    zone_id: Optional[str]
+    zone_config_id: Optional[str]
     record_template_id: Optional[str]
     name: Optional[str]
     content: Optional[str]
@@ -54,7 +54,7 @@ class Record(Model):
     def __init__(
         self,
         id: Optional[str] = None,
-        zone_id: Optional[str] = None,
+        zone_config_id: Optional[str] = None,
         record_template_id: Optional[str] = None,
         name: Optional[str] = None,
         type: Optional[RecordType] = None,
@@ -71,7 +71,7 @@ class Record(Model):
         :param id:                 Record ID. Ignored in create zone requzone_config.pyests. Either id or zoneId, name,
                                    type, and content are required in all other requests.
 
-        :param zone_id:            ID of zone that the record belongs to.
+        :param zone_config_id:            ID of zone that the record belongs to.
 
         :param record_template_id: ID of record template the record is tied to. If empty, record has to be managed
                                    manually. If tied to record template, record will be removed or updated whenever
@@ -101,7 +101,7 @@ class Record(Model):
         """
         super().__init__(**kwargs)
         self.id = id
-        self.zone_id = zone_id
+        self.zone_config_id = zone_config_id
         self.record_template_id = record_template_id
         self.name = name
         self.type = type
