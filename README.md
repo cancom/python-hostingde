@@ -1,4 +1,6 @@
-# Hosting.de Client-Library [![codecov](https://codecov.io/gh/cancom/python-hostingde/branch/main/graph/badge.svg?token=C5SXI4B7PV)](https://codecov.io/gh/cancom/python-hostingde) [![hosting.de API](https://github.com/hosting-de/awesome-hosting.de/raw/master/assets/hostingde-api.svg)](https://github.com/topics/hostingde)
+# Hosting.de Client-Library 
+[![codecov](https://codecov.io/gh/cancom/python-hostingde/branch/main/graph/badge.svg?token=C5SXI4B7PV)](https://codecov.io/gh/cancom/python-hostingde) [![Supported Versions](https://img.shields.io/pypi/pyversions/python-hostingde.svg)](https://pypi.org/project/python-hostingde) [![hosting.de API](https://github.com/hosting-de/awesome-hosting.de/raw/master/assets/hostingde-api.svg)](https://github.com/topics/hostingde)
+
 
 An unofficial client library for the [hosting.de API](https://hosting.de/api/).
 
