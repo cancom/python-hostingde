@@ -126,7 +126,7 @@ class HostingDePaginator(HostingDeCore, Generic[R]):
         """
         return list(self)
 
-    def fetchone(self) -> R:
+    def fetchone(self) -> Optional[R]:
         """
         Only fetch a single resource from the API.
 
@@ -135,7 +135,7 @@ class HostingDePaginator(HostingDeCore, Generic[R]):
         try:
             return self.__next__()
         except StopIteration:
-            raise ClientException('No entities found for given filter!')
+            return None
 
     def __len__(self):
         """

@@ -241,3 +241,49 @@ def test_fetchone():
     )
 
     assert paginator.fetchone().content == '127.0.0.0'
+
+
+@responses.activate
+def test_fetchone_returns_none_after_last():
+    api = login('https://example.de/api', 'token')
+
+    url = 'https://example.de/api/demo'
+
+    paginator: HostingDePaginator = HostingDePaginator(api, instance_class=Record, url=url)
+
+    responses.add(
+        'POST',
+        url,
+        body=json.dumps(
+            {
+                "response": {
+                    "data": [
+                        Record.create_new_record('cloud.de', RecordType.A, f'127.0.0.{i}').to_json() for i in range(25)
+                    ],
+                    "totalPages": 2,
+                },
+                "status": "success",
+            }
+        ),
+    )
+
+    responses.add(
+        'POST',
+        url,
+        body=json.dumps(
+            {
+                "response": {
+                    "data": [
+                        Record.create_new_record('cloud.de', RecordType.A, f'127.0.0.{i}').to_json()
+                        for i in range(25, 41)
+                    ],
+                    "totalPages": 2,
+                },
+                "status": "success",
+            }
+        ),
+    )
+
+    paginator.fetchall()
+
+    assert paginator.fetchone() is None
