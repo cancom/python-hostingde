@@ -1,4 +1,6 @@
-# Hosting.de Client-Library [![codecov](https://codecov.io/gh/cancom/python-hostingde/branch/main/graph/badge.svg?token=C5SXI4B7PV)](https://codecov.io/gh/cancom/python-hostingde)
+# Hosting.de Client-Library 
+[![codecov](https://codecov.io/gh/cancom/python-hostingde/branch/main/graph/badge.svg?token=C5SXI4B7PV)](https://codecov.io/gh/cancom/python-hostingde) [![Supported Versions](https://img.shields.io/pypi/pyversions/python-hostingde.svg)](https://pypi.org/project/python-hostingde) [![hosting.de API](https://github.com/hosting-de/awesome-hosting.de/raw/master/assets/hostingde-api.svg)](https://github.com/topics/hostingde)
+
 
 An unofficial client library for the [hosting.de API](https://hosting.de/api/).
 
@@ -10,21 +12,10 @@ The package requires Python 3.6+. It is currently only tested with Python 3.8, b
 
 ## Installation & Usage
 
-The package is currently not hosted publicly, but will be initially. There is no `pip install` **yet**.
+Install with pip:
 
-### Setuptools
-
-Install via [Setuptools](http://pypi.python.org/pypi/setuptools). Clone this repository and run
-
-```sh
-python setup.py install --user
-```
-(or `sudo python setup.py install` to install the package for all users)
-
-Then import the package:
-
-```python
-import hostingde
+```bash
+pip install python-hostingde
 ```
 
 ## Getting Started
@@ -74,7 +65,7 @@ for zone in client.dns.list_zones(filter=zone_filter):
   print(zone)
 ```
 
-This will automatically build teh corresponding filter expression in the background
+This will automatically build the corresponding filter expression in the background
 
 ```json
 {
@@ -142,12 +133,12 @@ This automatically builds the equivalent filter expression for the API:
 }
 ```
 
-but is less verbose and more readable.
+which is less verbose and more readable.
 
 ### Error Handling
 
 If the request returns an error, the error is wrapped inside a `api.client.exceptions.APIException` with all
-details included. You can easily catch them and react to them accodringly.
+details included. You can easily catch them and react to them accordingly.
 
 ## Current status
 
