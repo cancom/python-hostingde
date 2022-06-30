@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.4.2 (2022-06-30)
+### Fix
+* Paginator.fetchone() now returns None instead of a ClientException at the end of the iteration ([#13](https://github.com/cancom/python-hostingde/issues/13)) ([`dc94eee`](https://github.com/cancom/python-hostingde/commit/dc94eee54e765682f87ac631d7ae787253dab19a))
+
 ## v0.4.1 (2021-11-21)
 ### Fix
 * Renames zone_id to zone_config_id in Record model ([#11](https://github.com/cancom/python-hostingde/issues/11)) ([`45f4678`](https://github.com/cancom/python-hostingde/commit/45f46781b3070041252cc420552140181f08e784))
