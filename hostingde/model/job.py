@@ -14,6 +14,7 @@ class JobStatus(Enum):
     canceled = 'canceled'
     new = 'new'
     support = 'support'
+    timed = 'timed'
 
 
 @dataclass
