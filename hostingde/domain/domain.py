@@ -112,15 +112,6 @@ class DomainClient(HostingDeCore, AsynchronousClient):
         """
         url = self.build_uri('domainCreate')
 
-        print(RegisterDomainRequest(
-                domain=Domain(
-                    name=name,
-                    contacts=contacts,
-                    nameservers=nameservers,
-                    transfer_lock_enabled=transfer_lock_enabled
-                )
-            ).to_json())
-
         response = self._request(
             url,
             RegisterDomainRequest(
