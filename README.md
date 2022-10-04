@@ -156,6 +156,9 @@ Currently, we support the following endpoints for the following services:
     * [x] list_domains 100%
     * [x] register_domain 100%
     * [x] jobs_find 100%
+    * [x] list_contacts 100%
+    * [ ] create_contact 0%
+    * [ ] update_contact 0%
 * Account
     * [ ] list_accounts 50% - missing official documentation, functionality cannot be guaranteed
     * [ ] get_own_account 50% - missing official documentation, functionality only implemented as far as required
