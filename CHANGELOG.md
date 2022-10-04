@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v0.5.0 (2022-10-04)
+### Feature
+* Adds domain endpoints ([#16](https://github.com/cancom/python-hostingde/issues/16)) ([`afb488b`](https://github.com/cancom/python-hostingde/commit/afb488b076e9c6bb8710e95045aee96d9f641738))
+
+### Documentation
+* Installation instruction and badges ([#14](https://github.com/cancom/python-hostingde/issues/14)) ([`575741c`](https://github.com/cancom/python-hostingde/commit/575741c559387478383aa1fa04a0db973ee55fb7))
+
 ## v0.4.2 (2022-06-30)
 ### Fix
 * Paginator.fetchone() now returns None instead of a ClientException at the end of the iteration ([#13](https://github.com/cancom/python-hostingde/issues/13)) ([`dc94eee`](https://github.com/cancom/python-hostingde/commit/dc94eee54e765682f87ac631d7ae787253dab19a))
