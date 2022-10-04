@@ -33,6 +33,15 @@ class DnsClient(HostingDeCore, AsynchronousClient):
         """
         return self._build_uri('dns', method)
 
+    def get_default_nameserver(self) -> List[str]:
+        uri = self.build_uri('nameserverSetGetDefault')
+
+        response = self._request(uri)
+
+        data = response.json().get('response', {})
+
+        return data.get('nameservers', [])
+
     def list_zones(
         self,
         limit: Optional[int] = None,

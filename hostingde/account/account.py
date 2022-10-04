@@ -45,3 +45,12 @@ class AccountClient(HostingDeCore):
         uri = self._build_uri('account', 'subaccountsFind')
 
         return self._iter(uri, Account, filter, limit, sort)
+
+    def get_own_account(self, **kwargs):
+        uri = self._build_uri('account', 'getOwnAccount')
+
+        response = self._request(uri)
+
+        data = response.json().get('response', {})
+
+        return self._instance(Account, data)

@@ -13,3 +13,7 @@ class ApiException(Exception):
 
 class ClientException(Exception):
     pass
+
+
+class ContextConditionException(Exception):
+    pass

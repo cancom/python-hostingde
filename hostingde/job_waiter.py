@@ -30,17 +30,24 @@ class AsynchronousClient(ABC):
 
 
 class JobWaiter:
-    def __init__(self, service: AsynchronousClient, id: str):
+    def __init__(self, service: AsynchronousClient, id: str, action_name: Optional[str] = None):
         self.service = service
         self.id = id
+        self.action_name = action_name
 
     def wait(self) -> None:
+        f = FilterCondition('jobObjectId').eq(self.id) \
+            & FilterCondition('jobStatus').ne('successful') \
+            & FilterCondition('jobStatus').ne('failed') \
+            & FilterCondition('jobStatus').ne('canceled')
+
+        # Append an additional action name filter, if provided
+        if self.action_name:
+            f = f & FilterCondition('jobType').eq(self.action_name)
+
         while True:
             jobs = self.service.jobs_find(
-                filter=FilterCondition('jobObjectId').eq(self.id)
-                & FilterCondition('jobStatus').ne('successful')
-                & FilterCondition('jobStatus').ne('failed')
-                & FilterCondition('jobStatus').ne('canceled')
+                filter=f
             ).fetchall()
 
             if len(jobs) == 0:

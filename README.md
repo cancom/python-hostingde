@@ -151,9 +151,18 @@ Currently, we support the following endpoints for the following services:
     * [x] delete_zone 100%
     * [ ] jobs_find 50% - missing official documentation, functionality cannot be guaranteed
     * [x] update_zone 100%
+    * [x] get_default_nameserver 100%
+* Domain
+    * [x] list_domains 100%
+    * [x] register_domain 100%
+    * [x] jobs_find 100%
+    * [x] list_contacts 100%
+    * [ ] create_contact 0%
+    * [ ] update_contact 0%
 * Account
     * [ ] list_accounts 50% - missing official documentation, functionality cannot be guaranteed
-    
+    * [ ] get_own_account 50% - missing official documentation, functionality only implemented as far as required
+
 We plan to add more endpoints in the future, for example for SSL and Domain services.
 
 The implemented endpoints do not contain any logic to catch asynchronous behaviour yet. We plan to add a `sync: bool`
