@@ -1,5 +1,6 @@
-from typing import Optional, List
+from typing import Optional, List, Union
 
+from hostingde.domain.requests.check_availability import CheckAvailabilityRequest, CheckAvailabilityResponse
 from hostingde.domain.requests.register_domain import RegisterDomainRequest
 from hostingde.paginator import HostingDePaginator
 from hostingde.hostingde import HostingDeCore
@@ -48,6 +49,21 @@ class DomainClient(HostingDeCore, AsynchronousClient):
         uri = self._build_uri('domain', 'jobsFind')
 
         return self._iter(uri, Job, filter, limit, sort)
+
+    def check_domain_name_availability(self, domain_names: Union[str, List[str]]) -> List[CheckAvailabilityResponse]:
+        uri = self.build_uri('domainStatus')
+
+        if type(domain_names) == str:
+            domain_names = [domain_names]
+
+        response = self._request(
+            uri,
+            CheckAvailabilityRequest(domain_names=domain_names)
+        )
+
+        data = response.json().get('responses', [])
+
+        return list(map(lambda x: self._instance(CheckAvailabilityResponse, x), data))
 
     def list_domains(
         self,
