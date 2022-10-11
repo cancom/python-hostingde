@@ -2,6 +2,7 @@ from typing import Optional, List, Union
 
 from hostingde.domain.requests.check_availability import CheckAvailabilityRequest, CheckAvailabilityResponse
 from hostingde.domain.requests.register_domain import RegisterDomainRequest
+from hostingde.model.domain_contact import DomainContact
 from hostingde.paginator import HostingDePaginator
 from hostingde.hostingde import HostingDeCore
 from hostingde.job_waiter import AsynchronousClient, JobWaiter
@@ -93,7 +94,7 @@ class DomainClient(HostingDeCore, AsynchronousClient):
         sort: Optional[SortConfiguration] = None,
         *args: list,
         **kwargs: dict
-    ) -> HostingDePaginator[Domain]:
+    ) -> HostingDePaginator[DomainContact]:
         """
         Retrieves a list of Domain objects from the generic filtering and sorting API.
 
@@ -105,7 +106,7 @@ class DomainClient(HostingDeCore, AsynchronousClient):
 
         uri = self._build_uri('domain', 'contactsFind')
 
-        return self._iter(uri, Domain, filter, limit, sort)
+        return self._iter(uri, DomainContact, filter, limit, sort)
 
     def register_domain(
         self,
