@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v0.6.0 (2022-10-17)
+### Feature
+* Adds check_domain_availability endpoint ([#17](https://github.com/cancom/python-hostingde/issues/17)) ([`76b63cd`](https://github.com/cancom/python-hostingde/commit/76b63cd2fb8153e9eaaf20cc3b215bfeb28858fa))
+
+### Fix
+* Fixes issue where wrong model is retrieved from backend ([#18](https://github.com/cancom/python-hostingde/issues/18)) ([`7e5fbbe`](https://github.com/cancom/python-hostingde/commit/7e5fbbe589c8b000e740558aa82402d4bcefbbfe))
+
 ## v0.5.0 (2022-10-04)
 ### Feature
 * Adds domain endpoints ([#16](https://github.com/cancom/python-hostingde/issues/16)) ([`afb488b`](https://github.com/cancom/python-hostingde/commit/afb488b076e9c6bb8710e95045aee96d9f641738))
