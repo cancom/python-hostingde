@@ -96,6 +96,7 @@ class HostingDeCore:
         filter: Optional[FilterElement] = None,
         limit: Optional[int] = None,
         sort: Optional[SortConfiguration] = None,
+        page: Optional[int] = None,
     ) -> 'hostingde.HostingDePaginator[T]':
         """
         Use the generic filtering and sorting API to paginate over results.
@@ -108,7 +109,7 @@ class HostingDeCore:
         :return: The iterator for the resultset
         """
 
-        return hostingde.HostingDePaginator(self, instance_class, url, filter=filter, limit=limit, sort=sort)
+        return hostingde.HostingDePaginator(self, instance_class, url, filter=filter, limit=limit, sort=sort, page=page)
 
     def login(self, url: str, token: str) -> None:
         """
