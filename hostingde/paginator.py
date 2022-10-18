@@ -32,6 +32,7 @@ class HostingDePaginator(HostingDeCore, Generic[R]):
         limit: Optional[int] = 25,
         filter: Optional[FilterElement] = None,
         sort: Optional[SortConfiguration] = None,
+        page: Optional[int] = None
     ):
         """
         Construct a new paginator.
@@ -43,8 +44,10 @@ class HostingDePaginator(HostingDeCore, Generic[R]):
         :param limit: The maximum number of entries to retrieve per API call
         :param filter: Filter the results based on a filter expression
         :param sort: Sort the results by a given field
+        :param page: Which page to query. Requires limit to be set, which defaults to 25.
         """
         super().__init__(parent)
+
         self.current_page = 1
         self.total_pages = -1
         self.results: List[R] = []
@@ -56,6 +59,10 @@ class HostingDePaginator(HostingDeCore, Generic[R]):
         self.count = count or -1
         self.instance_class = instance_class
         self._total_entries = -1
+
+        if page:
+            self.current_page = page
+            self.count = self.limit
 
     def __iter__(self):
         """

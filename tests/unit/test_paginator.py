@@ -106,6 +106,35 @@ def test_paginator_no_more_data():
 
 
 @responses.activate
+def test_paginator_paged():
+    api = login('https://example.de/api', 'token')
+
+    url = 'https://example.de/api/demo'
+
+    paginator: HostingDePaginator = HostingDePaginator(api, instance_class=Record, url=url, page=2)
+
+    responses.add(
+        'POST',
+        url,
+        body=json.dumps(
+            {
+                "response": {
+                    "data": [
+                        Record.create_new_record('cloud.de', RecordType.A, f'127.0.0.{i}').to_json() for i in range(50)
+                    ],
+                    "totalPages": 2,
+                },
+                "status": "success",
+            }
+        ),
+    )
+
+    responses.add('POST', url, body=json.dumps({"response": {"data": [], "totalPages": 2}, "status": "success"}))
+
+    assert len(paginator.fetchall()) == 25
+
+
+@responses.activate
 def test_paginator_multipage():
     api = login('https://example.de/api', 'token')
 

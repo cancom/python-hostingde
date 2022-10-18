@@ -36,6 +36,7 @@ class DomainClient(HostingDeCore, AsynchronousClient):
         limit: Optional[int] = None,
         filter: Optional[FilterElement] = None,
         sort: Optional[SortConfiguration] = None,
+        page: Optional[int] = None,
         *args: list,
         **kwargs: dict
     ) -> HostingDePaginator[Job]:
@@ -45,11 +46,12 @@ class DomainClient(HostingDeCore, AsynchronousClient):
         :param limit: The limit of objects to retrieve per call. If not set, defaults to 25.
         :param filter: A filter that is applied to the query
         :param sort: Configuration how results are sorted.
+        :param page: The page to retrieve. If limit is unset, 25 items will be retrieved.
         :return: An iterator that yields ZoneConfig objects.
         """
         uri = self._build_uri('domain', 'jobsFind')
 
-        return self._iter(uri, Job, filter, limit, sort)
+        return self._iter(uri, Job, filter, limit, sort, page)
 
     def check_domain_name_availability(self, domain_names: Union[str, List[str]]) -> List[CheckAvailabilityResponse]:
         uri = self.build_uri('domainStatus')
@@ -71,6 +73,7 @@ class DomainClient(HostingDeCore, AsynchronousClient):
         limit: Optional[int] = None,
         filter: Optional[FilterElement] = None,
         sort: Optional[SortConfiguration] = None,
+        page: Optional[int] = None,
         *args: list,
         **kwargs: dict
     ) -> HostingDePaginator[Domain]:
@@ -80,18 +83,20 @@ class DomainClient(HostingDeCore, AsynchronousClient):
         :param limit: The limit of objects to retrieve per call. If not set, defaults to 25.
         :param filter: A filter that is applied to the query
         :param sort: Configuration how results are sorted.
+        :param page: The page to retrieve. If limit is unset, 25 items will be retrieved.
         :return: An iterator that yields Zone objects.
         """
 
         uri = self._build_uri('domain', 'domainsFind')
 
-        return self._iter(uri, Domain, filter, limit, sort)
+        return self._iter(uri, Domain, filter, limit, sort, page)
 
     def list_contacts(
         self,
         limit: Optional[int] = None,
         filter: Optional[FilterElement] = None,
         sort: Optional[SortConfiguration] = None,
+        page: Optional[int] = None,
         *args: list,
         **kwargs: dict
     ) -> HostingDePaginator[DomainContact]:
@@ -101,12 +106,13 @@ class DomainClient(HostingDeCore, AsynchronousClient):
         :param limit: The limit of objects to retrieve per call. If not set, defaults to 25.
         :param filter: A filter that is applied to the query
         :param sort: Configuration how results are sorted.
+        :param page: The page to retrieve. If limit is unset, 25 items will be retrieved.
         :return: An iterator that yields Zone objects.
         """
 
         uri = self._build_uri('domain', 'contactsFind')
 
-        return self._iter(uri, DomainContact, filter, limit, sort)
+        return self._iter(uri, DomainContact, filter, limit, sort, page)
 
     def register_domain(
         self,

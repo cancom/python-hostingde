@@ -47,6 +47,7 @@ class DnsClient(HostingDeCore, AsynchronousClient):
         limit: Optional[int] = None,
         filter: Optional[FilterElement] = None,
         sort: Optional[SortConfiguration] = None,
+        page: Optional[int] = None,
         *args: list,
         **kwargs: dict
     ) -> HostingDePaginator[Zone]:
@@ -110,18 +111,20 @@ class DnsClient(HostingDeCore, AsynchronousClient):
         :param limit: The limit of objects to retrieve per call. If not set, defaults to 25.
         :param filter: A filter that is applied to the query
         :param sort: Configuration how results are sorted.
+        :param page: The page to retrieve. If limit is unset, 25 items will be retrieved.
         :return: An iterator that yields Zone objects.
         """
 
         uri = self._build_uri('dns', 'zonesFind')
 
-        return self._iter(uri, Zone, filter, limit, sort)
+        return self._iter(uri, Zone, filter, limit, sort, page)
 
     def list_zone_configs(
         self,
         limit: Optional[int] = None,
         filter: Optional[FilterElement] = None,
         sort: Optional[SortConfiguration] = None,
+        page: Optional[int] = None,
         *args: list,
         **kwargs: dict
     ) -> HostingDePaginator[ZoneConfig]:
@@ -171,18 +174,20 @@ class DnsClient(HostingDeCore, AsynchronousClient):
         :param limit: The limit of objects to retrieve per call. If not set, defaults to 25.
         :param filter: A filter that is applied to the query
         :param sort: Configuration how results are sorted.
+        :param page: The page to retrieve. If limit is unset, 25 items will be retrieved.
         :return: An iterator that yields Zone objects.
         """
 
         uri = self._build_uri('dns', 'zoneConfigsFind')
 
-        return self._iter(uri, ZoneConfig, filter, limit, sort)
+        return self._iter(uri, ZoneConfig, filter, limit, sort, page)
 
     def list_records(
         self,
         limit: Optional[int] = None,
         filter: Optional[FilterElement] = None,
         sort: Optional[SortConfiguration] = None,
+        page: Optional[int] = None,
         *args: list,
         **kwargs: dict
     ) -> HostingDePaginator[Record]:
@@ -212,12 +217,13 @@ class DnsClient(HostingDeCore, AsynchronousClient):
         :param limit: The limit of objects to retrieve per call. If not set, defaults to 25.
         :param filter: A filter that is applied to the query
         :param sort: Configuration how results are sorted.
+        :param page: The page to retrieve. If limit is unset, 25 items will be retrieved.
         :return: An iterator that yields Zone objects.
         """
 
         uri = self._build_uri('dns', 'recordsFind')
 
-        return self._iter(uri, Record, filter, limit, sort)
+        return self._iter(uri, Record, filter, limit, sort, page)
 
     def delete_zone(
         self, zone_config_id: Optional[str] = None, zone_name: Optional[str] = None, asynchronous: bool = None
@@ -254,6 +260,7 @@ class DnsClient(HostingDeCore, AsynchronousClient):
         limit: Optional[int] = None,
         filter: Optional[FilterElement] = None,
         sort: Optional[SortConfiguration] = None,
+        page: Optional[int] = None,
         *args: list,
         **kwargs: dict
     ) -> HostingDePaginator[Job]:
@@ -263,11 +270,12 @@ class DnsClient(HostingDeCore, AsynchronousClient):
         :param limit: The limit of objects to retrieve per call. If not set, defaults to 25.
         :param filter: A filter that is applied to the query
         :param sort: Configuration how results are sorted.
+        :param page: The page to retrieve. If limit is unset, 25 items will be retrieved.
         :return: An iterator that yields ZoneConfig objects.
         """
         uri = self._build_uri('dns', 'jobsFind')
 
-        return self._iter(uri, Job, filter, limit, sort)
+        return self._iter(uri, Job, filter, limit, sort, page)
 
     def update_zone(
         self,
