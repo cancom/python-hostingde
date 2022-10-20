@@ -157,7 +157,7 @@ class FilterCondition(FilterElement):
         self.relation = FilterConditionRelation.EQUAL
         return self
 
-    def __and__(self, other: FilterElement) -> 'FilterChain':
+    def __and__(self, other: Optional[FilterElement]) -> 'FilterChain':
         """
         Dynamically construct a 'and' filter chain object using binary operations.
         :param other: The other filter element to chain to this element.
@@ -172,10 +172,12 @@ class FilterCondition(FilterElement):
                 return FilterChain(FilterChainConnective.AND).add_filter(self).add_filter(other)
             else:
                 raise FilterCompilationException('Unknown filter element connective operation')
+        elif other is None:
+            return self
         else:
             raise FilterCompilationException('Unknown filter element type')
 
-    def __or__(self, other: FilterElement) -> 'FilterChain':
+    def __or__(self, other: Optional[FilterElement]) -> 'FilterChain':
         """
         Dynamically construct a 'or' filter chain object using binary operations.
         :param other: The other filter element to chain to this element.
@@ -190,6 +192,8 @@ class FilterCondition(FilterElement):
                 return FilterChain(FilterChainConnective.OR).add_filter(self).add_filter(other)
             else:
                 raise FilterCompilationException('Unknown filter element connective operation')
+        elif other is None:
+            return self
         else:
             raise FilterCompilationException('Unknown filter element type')
 
@@ -242,7 +246,7 @@ class FilterChain(FilterElement):
 
         return self
 
-    def __and__(self, other: FilterElement) -> 'FilterChain':
+    def __and__(self, other: Optional[FilterElement]) -> 'FilterChain':
         """
         Dynamically construct a 'and' filter chain object using binary operations.
         :param other: The other filter element to chain to this element.
@@ -269,10 +273,12 @@ class FilterChain(FilterElement):
                 return FilterChain(FilterChainConnective.AND).add_filter(self).add_filter(other)
             else:
                 raise FilterCompilationException('Unknown filter element connective operation')
+        elif other is None:
+            return self
         else:
             raise FilterCompilationException('Unknown filter element type')
 
-    def __or__(self, other: FilterElement) -> 'FilterChain':
+    def __or__(self, other: Optional[FilterElement]) -> 'FilterChain':
         """
         Dynamically construct a 'and' filter chain object using binary operations.
         :param other: The other filter element to chain to this element.
@@ -299,5 +305,7 @@ class FilterChain(FilterElement):
                 return FilterChain(FilterChainConnective.OR).add_filter(self).add_filter(other)
             else:
                 raise FilterCompilationException('Unknown filter element connective operation')
+        elif other is None:
+            return self
         else:
             raise FilterCompilationException('Unknown filter element type')
