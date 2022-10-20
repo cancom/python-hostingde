@@ -2,6 +2,11 @@
 
 <!--next-version-placeholder-->
 
+## v0.7.0 (2022-10-20)
+### Feature
+* Adds None as possible chainable target ([#20](https://github.com/cancom/python-hostingde/issues/20)) ([`daf077b`](https://github.com/cancom/python-hostingde/commit/daf077b0cd9e470797dce63938686b3a090265a7))
+* Adds ability to paginate using the pages API which was originally hidden to the user ([`318d75c`](https://github.com/cancom/python-hostingde/commit/318d75c9064e83f1bc6e473f5938e5942a0c23c5))
+
 ## v0.6.0 (2022-10-17)
 ### Feature
 * Adds check_domain_availability endpoint ([#17](https://github.com/cancom/python-hostingde/issues/17)) ([`76b63cd`](https://github.com/cancom/python-hostingde/commit/76b63cd2fb8153e9eaaf20cc3b215bfeb28858fa))
