@@ -66,6 +66,20 @@ class TestSimpleFilterCondition:
 
 
 class TestSimpleFilterChain:
+
+    def test_filter_bitand_none(self):
+        f1 = FilterCondition('field').eq('value')
+        f2 = None
+
+        chain = f1 & f2
+
+        filter_object = chain.to_filter_object()
+
+        assert filter_object is not None
+        assert filter_object.get('field') == 'field'
+        assert filter_object.get('value') == 'value'
+        assert filter_object.get('relation') == 'equal'
+
     def test_filter_bitand_chain(self):
         f1 = FilterCondition('field').eq('value')
         f2 = FilterCondition('field2').ne('value')
@@ -77,6 +91,19 @@ class TestSimpleFilterChain:
         assert filter_object is not None
         assert filter_object.get('subFilterConnective') == 'and'
         assert len(filter_object.get('subFilter', [])) == 2
+
+    def test_filter_bitor_none(self):
+        f1 = FilterCondition('field').eq('value')
+        f2 = None
+
+        chain = f1 | f2
+
+        filter_object = chain.to_filter_object()
+
+        assert filter_object is not None
+        assert filter_object.get('field') == 'field'
+        assert filter_object.get('value') == 'value'
+        assert filter_object.get('relation') == 'equal'
 
     def test_filter_bitor_chain(self):
         f1 = FilterCondition('field').eq('value')
@@ -96,6 +123,26 @@ class TestSimpleFilterChain:
 
 
 class TestFilterIntoChainInsertion:
+    def test_none_into_and_chain(self):
+        c1 = FilterCondition('field2').eq('radnom') & FilterCondition('field3').eq('something')
+
+        chain = c1 & None
+
+        filter_object = chain.to_filter_object()
+        assert filter_object is not None
+        assert filter_object.get('subFilterConnective') == 'and'
+        assert len(filter_object.get('subFilter', [])) == 2
+
+    def test_none_into_or_chain(self):
+        c1 = FilterCondition('field2').eq('radnom') | FilterCondition('field3').eq('something')
+
+        chain = c1 | None
+
+        filter_object = chain.to_filter_object()
+        assert filter_object is not None
+        assert filter_object.get('subFilterConnective') == 'or'
+        assert len(filter_object.get('subFilter', [])) == 2
+
     def test_filter_ele_and_into_and(self):
         f1 = FilterCondition('field').eq('value')
         c1 = FilterCondition('field2').eq('radnom') & FilterCondition('field3').eq('something')
