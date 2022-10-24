@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.7.1 (2022-10-24)
+### Fix
+* Adds account_id to domains model ([#21](https://github.com/cancom/python-hostingde/issues/21)) ([`8875185`](https://github.com/cancom/python-hostingde/commit/8875185ba06ef6930e951f061221e06e801e0ee1))
+
 ## v0.7.0 (2022-10-20)
 ### Feature
 * Adds None as possible chainable target ([#20](https://github.com/cancom/python-hostingde/issues/20)) ([`daf077b`](https://github.com/cancom/python-hostingde/commit/daf077b0cd9e470797dce63938686b3a090265a7))
