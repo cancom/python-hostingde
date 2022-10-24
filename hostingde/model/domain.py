@@ -51,6 +51,7 @@ class Domain(Model):
     id: Optional[str]
     name: str
     name_unicode: Optional[str]
+    account_id: Optional[str]
     transfer_lock_enabled:  bool
     auth_info: Optional[str]
     create_date: Optional[str]
@@ -70,6 +71,7 @@ class Domain(Model):
             transfer_lock_enabled: bool = True,
             id: Optional[str] = None,
             name_unicode: Optional[str] = None,
+            account_id: Optional[str] = None,
             status: Optional[DomainStatus] = None,
             auth_info: Optional[str] = None,
             contacts: Optional[List[DomainContactRef]] = None,
@@ -90,6 +92,7 @@ class Domain(Model):
                                         not every TLD supports this feature.
         :param id: Domain ID
         :param name_unicode: Domain name in Unicode/international format
+        :param account_id: The id of the account
         :param status: Domain status, 'ordered', 'active', 'restorable', 'failed'
         :param auth_info: 	The domain transfer authorisation code for this domain.
                             Only contains a value if transferLockEnabled is not set.
@@ -111,6 +114,7 @@ class Domain(Model):
         self.transfer_lock_enabled = transfer_lock_enabled
         self.id = id
         self.name_unicode = name_unicode
+        self.account_id = account_id
         self.status = status
         self.auth_info = auth_info
         self.contacts = contacts or []
