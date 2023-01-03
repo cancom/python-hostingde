@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.7.2 (2023-01-03)
+### Fix
+* Removes responses from requirements ([#23](https://github.com/cancom/python-hostingde/issues/23)) ([`042ac4e`](https://github.com/cancom/python-hostingde/commit/042ac4e19abf0e254dd45b651bc19f6ca60a33ac))
+
 ## v0.7.1 (2022-10-24)
 ### Fix
 * Adds account_id to domains model ([#21](https://github.com/cancom/python-hostingde/issues/21)) ([`8875185`](https://github.com/cancom/python-hostingde/commit/8875185ba06ef6930e951f061221e06e801e0ee1))
