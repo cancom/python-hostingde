@@ -2,6 +2,7 @@ from typing import List, Optional
 
 from hostingde.dns.requests.create_new_zone import CreateZoneRequest
 from hostingde.dns.requests.delete_zone import DeleteZoneRequest
+from hostingde.dns.requests.update_records_request import UpdateRecordsRequest
 from hostingde.dns.requests.update_zone_request import UpdateZoneRequest
 from hostingde.exceptions import ClientException
 from hostingde.hostingde import HostingDeCore
@@ -283,7 +284,7 @@ class DnsClient(HostingDeCore, AsynchronousClient):
         records_to_add: Optional[List[Record]] = None,
         records_to_delete: Optional[List[Record]] = None,
         records_to_modify: Optional[List[Record]] = None,
-        asynchronous: Optional[bool] = None,
+        asynchronous: Optional[bool] = None
     ) -> Zone:
         """
         You can use zoneUpdate to make adjustments to the zone's zoneConfig, to remove records, to add new records or
@@ -321,6 +322,59 @@ class DnsClient(HostingDeCore, AsynchronousClient):
 
         return zone
 
+    def records_update(
+        self,
+        zone_config_id: Optional[str] = None,
+        zone_config_name: Optional[str] = None,
+        records_to_add: Optional[List[Record]] = None,
+        records_to_delete: Optional[List[Record]] = None,
+        records_to_modify: Optional[List[Record]] = None,
+        asynchronous: Optional[bool] = None,
+        dry_run: Optional[bool] = False
+    ) -> Zone:
+        """
+        You can use zoneUpdate to make adjustments to the zone's zoneConfig, to remove records, to add new records or
+        to modify existing records.
+
+        All records in recordsToAdd will be added to the zone, while all records in recordsToDelete will be deleted.
+        All records in recordsToModify will be modified. If you insert a record that does not exist into recordsToDelete
+        or recordsToModify, an error will occur.
+
+        Existing records that are not contained in either list will not be changed.
+
+        :param zone_config_id: id of the zone to update. Optional, but at least one of zone_config_id and
+                               zone_config_name is required
+        :param zone_config_name: name of the zone to update. Optional, but at least one of zone_config_id and
+                               zone_config_name is required
+        :param records_to_add: Records to be added
+        :param records_to_delete: Records to be modified
+        :param records_to_modify: Records to be deleted
+        :param asynchronous: Update the zone asynchronously. If not provided, defaults to synchronous mode.
+        :param dry_run: Don't perform the zone update, but only check if it might succeed.
+        :return:
+        """
+        url = self.build_uri('recordsUpdate')
+        if dry_run:
+            url += "Check"
+
+        response = self._request(
+            url,
+            UpdateRecordsRequest(
+                zone_config_id=zone_config_id,
+                zone_config_name=zone_config_name,
+                records_to_add=records_to_add,
+                records_to_delete=records_to_delete,
+                records_to_modify=records_to_modify,
+            ),
+        )
+
+        zone = self._instance(Zone, response.json().get('response', {}))
+
+        if not dry_run and not asynchronous and zone.zone_config.id is not None:
+            JobWaiter(self, zone.zone_config.id).wait()
+
+        return zone
+
     def create_zone(
         self,
         zone_config: ZoneConfig,
@@ -328,6 +382,7 @@ class DnsClient(HostingDeCore, AsynchronousClient):
         nameserver_set_id: Optional[str] = None,
         use_default_nameserver_set: Optional[bool] = None,
         asynchronous: Optional[bool] = None,
+        dry_run: Optional[bool] = False
     ) -> Zone:
         """
         To create a zone, you need at least a zoneConfig.
@@ -342,12 +397,15 @@ class DnsClient(HostingDeCore, AsynchronousClient):
         :param nameserver_set_id: NameserverSet to use for automatic creation of NS records. Default: 0
         :param use_default_nameserver_set: Use your account's default nameserver set. Default: false
         :param asynchronous: Create the zone asynchronously. If not provided, defaults to False (synchronous mode).
+        :param dry_run: Don't perform the zone creation, but only check if it might succeed.
         :return:
         """
         if records is None:
             records = []
 
         url = self.build_uri('zoneCreate')
+        if dry_run:
+            url += "Check"
 
         response = self._request(
             url,
@@ -361,7 +419,7 @@ class DnsClient(HostingDeCore, AsynchronousClient):
 
         zone: Zone = self._instance(Zone, response.json().get('response', {}))
 
-        if not asynchronous and zone.zone_config.id is not None:
+        if not dry_run and not asynchronous and zone.zone_config.id is not None:
             JobWaiter(self, zone.zone_config.id).wait()
 
         return zone
