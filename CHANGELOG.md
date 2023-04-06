@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.8.0 (2023-04-06)
+### Feature
+* Adds recordsUpdate endpoint ([#25](https://github.com/cancom/python-hostingde/issues/25)) ([`be922e3`](https://github.com/cancom/python-hostingde/commit/be922e3c82a5d1f72a0338aaa33aef32ce38cf0e))
+
 ## v0.7.2 (2023-01-03)
 ### Fix
 * Removes responses from requirements ([#23](https://github.com/cancom/python-hostingde/issues/23)) ([`042ac4e`](https://github.com/cancom/python-hostingde/commit/042ac4e19abf0e254dd45b651bc19f6ca60a33ac))
