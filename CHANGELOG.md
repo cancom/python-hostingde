@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.8.1 (2023-04-11)
+### Fix
+* Removes dependency on responses in setup.py ([`3f1e134`](https://github.com/cancom/python-hostingde/commit/3f1e134deae1423b0c27a5e01d7eaa9a91f9d2b4))
+
 ## v0.8.0 (2023-04-06)
 ### Feature
 * Adds recordsUpdate endpoint ([#25](https://github.com/cancom/python-hostingde/issues/25)) ([`be922e3`](https://github.com/cancom/python-hostingde/commit/be922e3c82a5d1f72a0338aaa33aef32ce38cf0e))
