@@ -32,7 +32,6 @@ setup(
         "marshmallow-dataclass==8.3.1",
         "marshmallow-enum==1.5.1",
         "urllib3~=1.26.3",
-        "responses~=0.13.1",
     ],
     python_requires=">=3.6.0",
     classifiers=[
