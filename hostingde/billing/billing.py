@@ -32,6 +32,5 @@ class BillingClient(HostingDeCore):
         response = self._request(uri, None)
 
         data = response.json().get('responses', {})
-        print(data[3])
 
         return [self._instance(DomainPrice, x) for x in data]
