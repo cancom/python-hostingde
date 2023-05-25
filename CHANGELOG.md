@@ -2,6 +2,11 @@
 
 <!--next-version-placeholder-->
 
+## v0.9.0 (2023-05-25)
+### Feature
+* Adds ssl certificate list endpoint ([#27](https://github.com/cancom/python-hostingde/issues/27)) ([`1556da4`](https://github.com/cancom/python-hostingde/commit/1556da4ebe06c63751482a489a0297ae036e7509))
+* Adds domain billing endpoint ([#26](https://github.com/cancom/python-hostingde/issues/26)) ([`5f42e81`](https://github.com/cancom/python-hostingde/commit/5f42e81e0b4a0210f516667bab4c70d2c57a2368))
+
 ## v0.8.1 (2023-04-11)
 ### Fix
 * Removes dependency on responses in setup.py ([`3f1e134`](https://github.com/cancom/python-hostingde/commit/3f1e134deae1423b0c27a5e01d7eaa9a91f9d2b4))
