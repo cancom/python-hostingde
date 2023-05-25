@@ -2,7 +2,6 @@ from typing import Optional
 
 from hostingde.paginator import HostingDePaginator
 from hostingde.hostingde import HostingDeCore
-from hostingde.model.billing import DomainPrice
 from hostingde.model.filter import FilterElement
 from hostingde.model.sort import SortConfiguration
 from hostingde.model.ssl import Certificate
