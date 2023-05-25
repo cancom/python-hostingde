@@ -3,6 +3,7 @@ from hostingde.billing.billing import BillingClient
 from hostingde.dns.dns import DnsClient
 from hostingde.domain.domain import DomainClient
 from hostingde.hostingde import HostingDeCore
+from hostingde.ssl.ssl import SslClient
 
 
 class HostingDeClient(HostingDeCore):
@@ -18,3 +19,4 @@ class HostingDeClient(HostingDeCore):
         self.domain: DomainClient = DomainClient(self)
         self.account: AccountClient = AccountClient(self)
         self.billing: BillingClient = BillingClient(self)
+        self.ssl: SslClient = SslClient(self)
