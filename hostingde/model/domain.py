@@ -61,6 +61,11 @@ class Domain(Model):
     deletion_date: Optional[str]
     add_date: Optional[str]
     last_change_date: Optional[str]
+    product_code: Optional[str]
+    renew_on: Optional[str]
+    restorable_until: Optional[str]
+    latest_deletion_date_without_renew: Optional[str]
+    paid_until: Optional[str]
     status: Optional[DomainStatus] = EnumField(DomainStatus)
     contacts: List[DomainContactRef] = field(default_factory=list)
     nameservers: List[Nameserver] = field(default_factory=list)
@@ -81,6 +86,11 @@ class Domain(Model):
             next_contract_period_start: Optional[str] = None,
             deletion_type: Optional[str] = None,
             deletion_date: Optional[str] = None,
+            product_code: Optional[str] = None,
+            renew_on: Optional[str] = None,
+            restorable_until: Optional[str] = None,
+            latest_deletion_date_without_renew: Optional[str] = None,
+            paid_until: Optional[str] = None,
             add_date: Optional[str] = None,
             last_change_date: Optional[str] = None,
             **kwargs: Any
@@ -106,6 +116,11 @@ class Domain(Model):
         :param deletion_date: 	Date the domain is scheduled for deletion or withdrawal. Is empty if domain is not
                                 scheduled for removal.
         :param add_date: Date and time this domain was created in or transferred into our system.
+        :param renew_on: Next renewal date
+        :param product_code: Code of the product, e.g. domain-co.uk-renewal
+        :param restorable_until: Latest possible restoration date
+        :param latest_deletion_date_without_renew: Last time to cancel the renewal process
+        :param paid_until: How long is the domain paid for
         :param last_change_date: Date and time of last modification of any domain data in our system.
         :param kwargs:
         """
@@ -126,5 +141,8 @@ class Domain(Model):
         self.deletion_date = deletion_date
         self.add_date = add_date
         self.last_change_date = last_change_date
-
-
+        self.renew_on = renew_on
+        self.product_code = product_code
+        self.restorable_until = restorable_until
+        self.latest_deletion_date_without_renew = latest_deletion_date_without_renew
+        self.paid_until = paid_until
