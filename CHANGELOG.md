@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v0.9.1 (2023-06-07)
+
+### Fix
+
+* Adds renewal and billing information to domain model ([#29](https://github.com/cancom/python-hostingde/issues/29)) ([`e5076f5`](https://github.com/cancom/python-hostingde/commit/e5076f5c7ca75f49845fe846cd6c4570f75c56d9))
+
 ## v0.9.0 (2023-05-25)
 ### Feature
 * Adds ssl certificate list endpoint ([#27](https://github.com/cancom/python-hostingde/issues/27)) ([`1556da4`](https://github.com/cancom/python-hostingde/commit/1556da4ebe06c63751482a489a0297ae036e7509))
